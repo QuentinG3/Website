@@ -12,7 +12,7 @@ def date(request):
 def home(request):
 	Streamers = Streamer.objects.filter(online=True)
 	print(Streamer)
-	return render(request,'lolbet/date.html',{'date':datetime.now(),'streamers':Streamer.objects.all()})
+	return render(request,'lolbet/home.html',{'streamers':Streamers})
 
 			
 

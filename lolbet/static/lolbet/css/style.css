@@ -1,0 +1,384 @@
+body { 
+  background: url("../pictures/Shurima_Capital_after_Azir.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.stream{
+	margin-bottom: 15px;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+p.stream-info{
+	color: #8c8c8c;
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0;
+}
+
+p.stream-info>a{
+	color: #8c8c8c;
+}
+
+p.stream-title{
+	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+}
+
+p.stream-title>a{
+	color: #333;
+	white-space: nowrap;
+	font: 14px Arial,sans-serif;
+	color: #32323e;
+}
+
+.table{
+	margin-bottom: 10px;
+	margin-top: 10px;
+
+}
+
+div.table-bg{
+	background: url("../pictures/igbg.png") no-repeat center center; 
+	border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #666;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 2px;
+    border-top: 0;
+    }
+
+a.tooltip3 span {
+    z-index:10;
+    width:180px;
+    margin-top:-110px;
+    margin-left: -18px;
+    display:none; 
+    padding:5px;
+    line-height:16px;
+    opacity: 0.95;
+}
+a.tooltip3:hover span{
+    display:inline; 
+    position:absolute; 
+    border:2px solid #FFF;  
+    color:#ddd;
+    background:#333 ;
+}
+    
+/*CSS3 extras*/
+a.tooltip3 span
+{
+    border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #666;
+    /*opacity: 0.8;*/
+}
+
+
+a.tooltip2 span {
+    z-index:10;
+    margin-top:-238px;
+    margin-left: -18px;
+    display:none; 
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    line-height:16px;
+    width:180px;
+    opacity: 0.95;
+}
+a.tooltip2:hover span{
+    display:inline; 
+    position:absolute; 
+    border:2px solid #FFF;  
+    color:#ddd;
+    background:#333 ;
+}
+    
+/*CSS3 extras*/
+a.tooltip2 span
+{
+    border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #666;
+    /*opacity: 0.8;*/
+}
+
+
+img.summoner2{
+	position: absolute;
+	top: 235px;
+	left: 32px;
+	height: 20px;
+}
+
+img.summoner1{
+	position: absolute;
+	top: 235px;
+	left: 8px;
+	height: 20px;
+}
+
+img.runes{
+	position: absolute;
+	top: 231px;
+	left: 99px;
+	height: 30px;
+}
+
+img.league{
+	position: absolute;
+	top: 223px;
+	left: 55px;
+	width: 35px;
+}
+
+h6.leaguen{
+	position: absolute; 
+   top: 250px; 
+   left: 0; 
+   width: 100%; 
+	color: #ddd;
+	margin: 0;
+	padding: 1px;
+	font-weight: bold;
+	text-align: center;
+}
+
+h5.bg{
+	position: absolute; 
+	height: 37px;
+   top: 227px; 
+   left: 0; 
+   width: 100%; 
+   background-color: #333;
+	margin: 0;
+	padding: 1px;
+	text-align: center;
+	border-left: solid 1px #fff;
+	border-right: solid 1px #fff;
+	border-bottom: solid 1px #fff;
+}
+
+h5.kda{
+	position: absolute; 
+   top: 190px; 
+   left: 0; 
+   width: 100%; 
+   background-color: #333;
+	color: #ddd;
+	margin: 0;
+	padding: 1px;
+	font-weight: bold;
+	text-align: center;
+	border: solid 1px #fff;
+	border-top: solid 1px #fff;
+}
+
+h5.wl{
+	position: absolute; 
+   top: 209px; 
+   left: 0; 
+   width: 100%; 
+   background-color: #333;
+	color: #ddd;
+	margin: 0;
+	padding: 1px;
+	font-weight: bold;
+	text-align: center;
+	border-bottom: solid 1px #fff;
+	border-left: solid 1px #fff;
+	border-right: solid 1px #fff;
+}
+
+h5.summoner-name-red{
+	background-color: #600;
+	color: #fff;
+	margin: 0;
+	padding: 1px;
+	font-weight: bold;
+	width: 145px;
+}
+
+
+.image-red { 
+   position: relative; 
+   width: 145px;
+   display: block;
+	 margin-left: auto;
+    margin-right: auto;
+    border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #600;
+}
+
+h5.summoner-name-blue{
+	background-color: #006;
+	color: #fff;
+	margin: 0;
+	padding: 1px;
+	font-weight: bold;
+	width: 145px;
+}
+
+
+.image-blue { 
+   position: relative; 
+   width: 145px;
+   display: block;
+	 margin-left: auto;
+    margin-right: auto;
+    border-radius:2px;        
+    box-shadow: 0px 0px 8px 4px #006;
+}
+
+
+.image>h2{
+	position: absolute; 
+   top: 0; 
+   left: 0; 
+   width: 100%; 
+   color: #fff;
+   background-color: #000;
+}
+
+
+a.panel-clickable{
+	display:block;
+	width: 100%;
+	height: 100%;
+	padding:10px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+}
+
+.panel-default>.panel-heading {
+    color: #ddd;
+    background-color: #333;
+    padding:0;
+    
+}
+
+.panel-title>a:hover{
+    text-decoration: none;
+    color:#fff;
+    background-color: #000;
+}
+
+.panel-title>a:focus{
+    text-decoration: none;
+}
+
+.wrapInner{
+	width:100%;
+	margin:0 
+	auto;
+	padding:15px;
+	display:inline-block;
+
+}
+.socialMedia{
+	float:right;
+}
+.socialMedia>a{
+	padding-left: 5px;
+}
+
+.jumbotron>hr {
+    border-top-color: #222222;
+}	
+
+div.jumbotron>h2{
+	font-weight: normal;
+	font-size: 150%;
+	font-family: "Impact";
+}
+
+div.jumbotron>p{
+	font-size: 115%;
+	font-family: "Helvetica";
+
+}
+
+div.panel-body>p{
+	font-size: 115%;
+	font-family: "Helvetica";
+}
+
+div.jumbotron{
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: #ddd;
+	color: #222;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+img.logo{
+	height: 150px;
+}
+
+footer.site_footer{
+	color:white;
+	padding-top: 15px;
+	background-color: #ddd;
+}
+
+div.bottom-footer{
+	margin-top: 5px;
+	background-color:#222;
+	color: white;
+}
+
+ul.footer-nav{
+	text-align: center;
+	list-style: none;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 5px;
+
+}
+
+ul.footer-nav li{
+	display:inline;
+}
+
+ul.footer-nav li:not(:first-child):before{
+	content: '|';
+	color: #222;
+	padding:0px 10px;
+}
+
+ul.footer-nav a{
+	color: #222 ;
+	font-weight: bold;
+}
+
+ul.footer-nav a:hover{
+	color: #527ACC ;
+}
+
+*{
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+ 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
