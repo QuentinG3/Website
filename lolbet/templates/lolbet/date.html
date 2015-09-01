@@ -1,0 +1,19 @@
+<body>
+	<head>
+		<title>
+		</title>
+
+	</head>
+
+	<body>
+	<p>Voici la date : {{ date }} </p>
+
+	{% for streamer in streamers %}
+	<p>{{streamer.name}}</p>
+	<p>{{streamer.online}}</p>
+	<p>{{streamer.currentGame}}</p>
+	{% endfor %}
+	</body>
+	
+
+</html>
