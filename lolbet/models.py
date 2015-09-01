@@ -5,7 +5,10 @@ import time
 class Streamer(models.Model):
 	name = models.CharField(max_length = 100)
 	channelName = models.CharField(max_length = 100)
+	status = models.CharField(max_length = 200,default="")
 	online = models.BooleanField(default=False)
+	viewers = models.IntegerField(default=0)
+	preview = models.CharField(max_length = 200,default="")
 	dateCreation = models.DateTimeField(auto_now_add=True)
 	dateModification = models.DateTimeField(auto_now = True)
 

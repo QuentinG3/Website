@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 #from celery import shared_task
 from lolbet.models import Streamer,SummonersName,Profil,Bet,Player,Game
-from lolbet.apiReader import streamIsOnline,getCurrentGameDictionnary,getSummonersId,tableauSummonersGameList
+from lolbet.apiReader import streamIsOnline,getCurrentGameDictionnary,getSummonersId,tableauSummonersGameList,streamGetDict
 
 #@shared_task
 def add(x, y):
@@ -14,15 +14,25 @@ def add(x, y):
 def updateOnlineStream():
 	allStreamer = Streamer.objects.all()
 	for streamer in allStreamer:
-		print(streamIsOnline(streamer.channelName))
-		if streamIsOnline(streamer.channelName):
-			streamer.online = True
-			streamer.save()
-		else:
-			streamer.online = False
-			streamer.save()
-	updateCurrentGame()
-	return True
+		dictionnary = streamGetDict(streamer.channelName)
+		if len(dictionnary) !=0:
+			#print("{0} dict not null".format(streamer.name))
+			if dictionnary['stream'] is None:
+				#print("{0} stream is none".format(streamer.name))
+				streamer.online = False
+				streamer.status = ""
+				streamer.viewers = 0
+				streamer.preview = 0
+				streamer.save()
+			else:
+				#print("{0} stream is not none".format(streamer.name))
+				if dictionnary['stream']['game'] == "League of Legends":
+					#print("{0} Play League of legends".format(streamer.name))
+					streamer.online = True
+					streamer.status = dictionnary['stream']['channel']['status']
+					streamer.viewers = dictionnary['stream']['viewers']
+					streamer.preview = dictionnary['stream']['preview']['medium']
+					streamer.save()
 	
 #RAJOUTER UPDATE SEULEMENT POUR LES RANKED GAME ETC
 #@shared_task

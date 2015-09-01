@@ -89,6 +89,16 @@ def streamIsOnline(channelName):
 		return True
 
 
+def streamGetDict(channelName):
+	url = "https://api.twitch.tv/kraken/streams/{0}".format(channelName)
+	req = Request(url,data=None,headers={'Accept': 'application/vnd.twitchtv.v3+json','Client-ID': 'ixze1gb3yw0x5vvdatj3iiklksvnk48'})
+	dictionnary = urlToDict(req)
+	if len(dictionnary) == 0:
+		return dict()
+	else:
+		return dictionnary
+
+
 
 
 
