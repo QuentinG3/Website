@@ -21,7 +21,8 @@ p.stream-info{
     white-space: nowrap;
     font: 12px "Helvetica Neue",Helvetica,Arial,sans-serif;
     margin: 0;
-    float:left;
+    text-align: left;
+    
 }
 
 p.stream-info>a{
@@ -33,12 +34,11 @@ p.stream-title{
     overflow: hidden;
     white-space: nowrap;
     margin: 0;
-    margin-right: auto;
+    text-align: left;
 }
 
 p.stream-title>a{
 	color: #333;
-	white-space: nowrap;
 	font: 14px Arial,sans-serif;
 	color: #32323e;
 }
