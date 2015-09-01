@@ -9,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'lolbet/css/style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
   </head>
   <body>
 
@@ -70,85 +69,21 @@
     <h2>Stream Wall</h2>
     <hr>
 
-  <ul>
     {% for item in streamers %}
-        <li>
-          <div class="stream">
+        <div class="stream">
         <a href="overview.html" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
         <p class="stream-title">
           <a href="overview.html" title="{{item.status}}">
           {{item.status}}</a>
         </p>
         <p class="stream-info">
-          {{item.viewers}}
+         {{item.viewers}}
           viewers on
           <a href="overview.html">{{item.channelName}}</a>
         </p>
         </div>
-      </li>
+
     {% endfor %}
-    </ul>
-
-    <div class="row">
-      <div class="col-md-3">
-        <div class="stream">
-        <a href="overview.html" ><img src = "http://static-cdn.jtvnw.net/previews-ttv/live_user_imaqtpie-320x180.jpg" class="img-responsive" alt="imaqtpie"></a>
-        <p class="stream-title">
-          <a href="overview.html" title="c9 celebration stream i was believed in them @imaqtpielol">
-          c9 celebration stream i was believed in them @imaqtpielol</a>
-        </p>
-        <p class="stream-info">
-          23,059
-          viewers on
-          <a href="overview.html">imaqtpie</a>
-        </p>
-        </div>
-        
-      </div>
-      <div class="col-md-3">
-        <div class="stream">
-        <a href="overview.html" ><img src = "http://static-cdn.jtvnw.net/previews-ttv/live_user_imaqtpie-320x180.jpg" class="img-responsive" alt="imaqtpie"></a>
-        <p class="stream-title">
-          <a href="overview.html" title="c9 celebration stream i was believed in them @imaqtpielol">
-          c9 celebration stream i was believed in them @imaqtpielol</a>
-        </p>
-        <p class="stream-info">
-          23,059
-          viewers on
-          <a href="overview.html">imaqtpie</a>
-        </p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="stream">
-        <a href="overview.html" ><img src = "http://static-cdn.jtvnw.net/previews-ttv/live_user_imaqtpie-320x180.jpg" class="img-responsive" alt="imaqtpie"></a>
-        <p class="stream-title">
-          <a href="overview.html" title="c9 celebration stream i was believed in them @imaqtpielol">
-          c9 celebration stream i was believed in them @imaqtpielol</a>
-        </p>
-        <p class="stream-info">
-          23,059
-          viewers on
-          <a href="overview.html">imaqtpie</a>
-        </p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="stream">
-        <a href="overview.html" ><img src = "http://static-cdn.jtvnw.net/previews-ttv/live_user_imaqtpie-320x180.jpg" class="img-responsive" alt="imaqtpie"></a>
-        <p class="stream-title">
-          <a href="overview.html" title="c9 celebration stream i was believed in them @imaqtpielol">
-          c9 celebration stream i was believed in them @imaqtpielol</a>
-        </p>
-        <p class="stream-info">
-          23,059
-          viewers on
-          <a href="overview.html">imaqtpie</a>
-        </p>
-        </div>
-      </div>
-
-    </div>
 
     <hr>
 

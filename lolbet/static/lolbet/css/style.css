@@ -8,8 +8,10 @@ body {
 
 .stream{
 	margin-bottom: 15px;
-	margin-left: auto;
-    margin-right: auto;
+    display: inline-block;
+    max-width: 100%;
+	height: auto;
+    border: 3px solid #8AC007;  
 }
 
 p.stream-info{
@@ -327,6 +329,7 @@ img.logo{
 }
 
 footer.site_footer{
+	border-radius: 5px;
 	color:white;
 	padding-top: 15px;
 	background-color: #ddd;
