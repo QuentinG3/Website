@@ -9,9 +9,8 @@ body {
 .stream{
 	margin-bottom: 15px;
     display: inline-block;
-    max-width: 100%;
-	height: auto;
-    border: 3px solid #8AC007;  
+    width: 220px;
+    margin: 10px;
 }
 
 p.stream-info{
