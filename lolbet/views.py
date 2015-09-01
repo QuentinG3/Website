@@ -11,7 +11,8 @@ def date(request):
 	
 def home(request):
 	Streamers = Streamer.objects.filter(online=True)
-	print(Streamer)
+	for item in Streamers:
+		item.viewers = '{0:,}'.format(item.viewers)
 	return render(request,'lolbet/home.html',{'streamers':Streamers})
 
 			
