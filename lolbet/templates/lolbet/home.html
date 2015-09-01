@@ -66,9 +66,11 @@
   <!-- Page BODY -->
 
    <div class="jumbotron">
+
+    
     <h2>Stream Wall</h2>
     <hr>
-
+<center>
     {% for item in streamers %}
         <div class="stream">
         <a href="overview.html" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
@@ -85,6 +87,7 @@
 
     {% endfor %}
 
+</center>
     <hr>
 
 
