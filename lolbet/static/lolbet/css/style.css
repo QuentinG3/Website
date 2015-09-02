@@ -5,6 +5,9 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+.form-control {
+	width:80%;
+}
 
 @font-face {
    font-family: titleFont;
@@ -26,7 +29,9 @@ div.modal-footer{
 }
 
 div.modal-body{
-	border-bottom: 3px solid #000;
+	background-color: #333;
+	color: #ddd;
+	font-family: "Helvetica";
 }
 
 div.modal-header{

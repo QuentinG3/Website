@@ -60,6 +60,7 @@ class Player(models.Model):
 class Profil(models.Model):
 	user = models.OneToOneField(User)
 	elo = models.IntegerField(default = 1200)
+	verifyAge = models.DateField(null=True)
 
 	def __str__(self):
 		return "Profil de {0}".format(self.user.username)
