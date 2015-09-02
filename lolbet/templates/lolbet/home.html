@@ -1,7 +1,7 @@
   <!DOCTYPE html>
   <html lang="en">
   <head>
-    <title>SITE NAME</title>
+    <title>LoL Bet</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-md-4"></div>
   <div class="col-md-4">
-    <a href="home.html">
+    <a href="home">
     <center><img class="img-responsive logo" src="{% static 'lolbet/Pictures/logo11.png' %}"></center>
   </a>
   </div>
@@ -56,8 +56,8 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="" data-toggle="modal" data-target="#signModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -104,7 +104,7 @@
 
    <div class="jumbotron" onchange="resizeAuto()" id="streamWindow">
     
-    <h2>Stream Wall</h2>
+    <h2><span>Stream</span> Wall</h2>
     <hr>
 
 
@@ -127,7 +127,7 @@
     <hr>
 
   </div>
-  
+
   <script>
 autoResize();
 </script>
@@ -139,6 +139,49 @@ autoResize();
   </div>
 
 </div>
+
+
+<!-- Modal Sign Up -->
+  <div class="modal fade" id="signModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Acc</span>ount</span> <span><span>Crea</span>tion</span></h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Login -->
+  <div class="modal fade" id="loginModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Login to Lol Bet</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 
  <!--Footer-->
 <div class="container">

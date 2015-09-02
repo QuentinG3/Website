@@ -6,6 +6,52 @@ body {
   background-size: cover;
 }
 
+@font-face {
+   font-family: titleFont;
+   src: url("../Bleeding_Cowboys.ttf");
+}
+
+div.modal-content{
+	background: url("../pictures/Shurima_Capital_after_Azir.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+	color: #ddd;
+	border: 3px solid #000;
+}
+
+div.modal-footer{
+	border-top: 0;
+}
+
+div.modal-body{
+	border-bottom: 3px solid #000;
+}
+
+div.modal-header{
+	text-align: center;
+	border-bottom: 3px solid #000;
+}
+
+div.modal-header>h4{
+	font-size: 20px;
+}
+
+div.modal-header>h4>span>span{
+	font-family: titleFont;
+	text-transform: uppercase;
+	font-size: 24px;
+	color: #684514;
+}
+
+div.modal-header>h4>span{
+	font-family: titleFont;
+	text-transform: uppercase;
+	font-size: 24px;
+	color: black;
+}
+
 .stream{
 	margin-bottom: 15px;
     display: inline-block;
@@ -303,7 +349,13 @@ a.panel-clickable{
 div.jumbotron>h2{
 	font-weight: normal;
 	font-size: 150%;
-	font-family: "Impact";
+	font-family: titleFont;
+	text-transform: uppercase;
+	color:black;
+}
+
+div.jumbotron>h2>span{
+	color:#684514;
 }
 
 div.jumbotron>p{
