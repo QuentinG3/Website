@@ -1,47 +1,20 @@
 {% extends "lolbet/base.html" %}
 
+{% block title %}LoL Bet - Stream Wall{% endblock %}
+
 {% block navbar %}
-  <!-- Static navbar -->
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
 
-          <li class="active"><a href="">Home</a></li>
-          <li><a href="overview.html">Overview</a></li>
-          <li><a href="">Ranking</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact us</a></li>
+<ul class="nav navbar-nav">
 
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ user.username }}
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="glyphicon   glyphicon-wrench"></span> Settings</a></li>
-            <li><a href="{% url "lolbet.views.deconnexion" %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-          </ul>
-        </li>
-        {% else %}
-        <li><a href="" data-toggle="modal" data-target="#signModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        {% endif %}
-      </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
+  <li class="active"><a href="">Home</a></li>
+  <li><a href="">Overview</a></li>
+  <li><a href="">Ranking</a></li>
+  <li><a href="">FAQ</a></li>
+  <li><a href="">Contact us</a></li>
 
-{% endblock %}
+</ul>
+        {% endblock %}
+
 
   <!-- Page BODY -->
 
@@ -78,145 +51,6 @@
     }
     
     }
-
-    function toggleLogin() {
-      $('#signModal').modal('hide');
-      $('#loginModal').modal('toggle');
-    }
-
-    function toggleSignin() {
-      $('#loginModal').modal('hide');
-      $('#signModal').modal('toggle');
-    }
-
-    function validateLogin() {
-
-      var valid = true;
-
-      //Check username
-      var username = document.forms["loginForm"]["username"].value;
-      if (username == null || username == "") {
-        document.getElementById("logUserHint").innerHTML  = "! You must enter a login";
-        valid = false;
-      }else{
-        document.getElementById("logUserHint").innerHTML  = "";
-      }
-
-      //Check username
-      var password = document.forms["loginForm"]["password"].value;
-      if (password == null || password == "") {
-        document.getElementById("logPassHint").innerHTML  = "! You must enter a password";
-        valid = false;
-      }else{
-        document.getElementById("logPassHint").innerHTML  = "";
-      }
-
-      if(valid){
-        return true;
-      }else{
-        return false;
-      }
-
-
-    }
-
-    function validateSignin() {
-      var valid = true;
-
-      //Check username
-      var username = document.forms["signInForm"]["username"].value;
-      if (username.length < 3) {
-        document.getElementById("usernameHint").innerHTML  = "! Username must be minimum of 3 characters";
-        valid = false;
-      }else{
-        document.getElementById("usernameHint").innerHTML  = "";
-      }
-
-      //check email
-      var email = document.forms["signInForm"]["email"].value;
-      if (email == null || email==""){
-        document.getElementById("emailHint").innerHTML  = "! You must enter an email address";
-        valid = false;
-      }else{
-        document.getElementById("emailHint").innerHTML  = "";
-      }
-
-      //check password1
-      var pass = document.forms["signInForm"]["password1"].value;
-      if (pass.length < 8 ) {
-        document.getElementById("pass1Hint").innerHTML  = "! Password must be minimum of 8 characters";
-        valid = false;
-      }else{
-        document.getElementById("pass1Hint").innerHTML  = "";
-      }
-
-      //check password2
-      var pass2 = document.forms["signInForm"]["password2"].value;
-      if (pass!=pass2) {
-        document.getElementById("pass2Hint").innerHTML  = "! Passwords do not match";
-        valid = false;
-      }else{
-        document.getElementById("pass2Hint").innerHTML  = "";
-      }
-
-      //check birthdate
-      var birthdate = document.forms["signInForm"]["verifyAge"].value;
-      var age = calcAge(birthdate);
-      //check age min 18
-      if(age<18){
-        document.getElementById("ageHint").innerHTML  = "! You must be at least 18";
-        valid = false;
-      }else{
-        document.getElementById("ageHint").innerHTML  = "";
-      }
-
-      //check age max 130
-      if(age>130){
-        document.getElementById("ageHint").innerHTML  = "! You are not "+age+" years old !";
-        valid = false;
-      }else{
-        if(age>17){
-          document.getElementById("ageHint").innerHTML  = "";
-        }
-      }
-
-      //check birthdate entered
-      if (birthdate == null || birthdate==""){
-        document.getElementById("ageHint").innerHTML  = "! You must enter your date of birth";
-        valid = false;
-      }else{
-        if(age>17 && age<131){
-          document.getElementById("ageHint").innerHTML  = "";
-        }
-        
-      }
-
-      //check terms and services
-      var check = document.forms["signInForm"]["terms"].checked;
-      if(!check)
-      {
-        document.getElementById("termsHint").innerHTML  = "! You must agree with the term of uses";
-        valid = false
-      }else{
-        document.getElementById("termsHint").innerHTML  = "";
-      }
-      
-
-      
-
-      if(valid){
-        return true;
-      }else{
-        return false;
-      }
-
-    }
-
-    function calcAge(dateString) {
-      var birthday = +new Date(dateString);
-      return~~ ((Date.now() - birthday) / (31557600000));
-}
-
     window.onresize = function(event) {
       autoResize();
     
@@ -256,96 +90,7 @@
 autoResize();
 </script>
 
-
-
- 
-  
-  </div>
-
-</div>
-
-
-  <script>
-
-  //Clean Modal when it's hidden
-  $('#loginModal').on('hidden.bs.modal', function () {
-    document.getElementById("loginModal").className = "modal fade";
-
-    document.forms["loginForm"]["username"].value = "";
-    document.forms["loginForm"]["password"].value = "";
-
-    document.getElementById("logUserHint").innerHTML  = "";
-    document.getElementById("logPassHint").innerHTML  = "";
-
-})
-
-  //Clean Modal when it's hidden
-  $('#signModal').on('hidden.bs.modal', function () {
-    document.getElementById("signModal").className = "modal fade";
-
-    document.forms["signInForm"]["username"].value = "";
-    document.forms["signInForm"]["email"].value = "";
-    document.forms["signInForm"]["password1"].value = "";
-    document.forms["signInForm"]["password2"].value = "";
-    document.forms["signInForm"]["verifyAge"].value = "";
-    document.forms["signInForm"]["terms"].checked = false;
-
-    document.getElementById("usernameHint").innerHTML  = "";
-    document.getElementById("pass1Hint").innerHTML  = "";
-    document.getElementById("pass2Hint").innerHTML  = "";
-    document.getElementById("emailHint").innerHTML  = "";
-    document.getElementById("ageHint").innerHTML  = "";
-    document.getElementById("termsHint").innerHTML  = "";
-
-})
-
-  {% for username in errorLogin %}
-    document.getElementById("loginModal").className = "modal";
-    $('#loginModal').modal('toggle');
-
-    document.forms["loginForm"]["username"].value = "{{username}}";
-    document.getElementById("logPassHint").innerHTML  = "! Invalid Credidentials";
-  {% empty %}
-  {% endfor %}
-
-  {% for data in errorSignUpUser %}
-    document.getElementById("signModal").className = "modal";
-    $('#signModal').modal('toggle');
-
-
-      document.forms["signInForm"]["username"].value = "{{data.4}}";
-      document.getElementById("usernameHint").innerHTML  = "! Username already used";
-
-      document.forms["signInForm"]["email"].value = "{{data.1}}";
-
-      document.forms["signInForm"]["password1"].value = "{{data.2}}";
-
-      document.forms["signInForm"]["password2"].value = "{{data.3}}";
-
-      document.forms["signInForm"]["terms"].checked = true;
-
-  {% empty %}
-  {% endfor %}
-
-  {% for data in errorSignUpEmail %}
-    document.getElementById("signModal").className = "modal";
-    $('#signModal').modal('toggle');
-
-      document.forms["signInForm"]["username"].value = "{{data}}";
-
-      document.forms["signInForm"]["email"].value = "{{data.1}}";
-      document.getElementById("emailHint").innerHTML  = "! Email already used";
-
-      document.forms["signInForm"]["password1"].value = "{{data.2}}";
-
-      document.forms["signInForm"]["password2"].value = "{{data.3}}";
-
-      document.forms["signInForm"]["terms"].checked = true;
-  {% empty %}
-  {% endfor %}
-
-
-
-   </script>
-
 {% endblock %}
+
+{% block signAction %}"{% url "lolbet.views.home" %}"{% endblock %}
+{% block loginAction %}"{% url "lolbet.views.home" %}"{% endblock %}

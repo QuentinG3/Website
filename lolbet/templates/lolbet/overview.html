@@ -1,79 +1,17 @@
-  <!DOCTYPE html>
-  {% extends "home.html" %}
-  <html lang="en">
-  <head>
-    <title>LoL Bet</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    {% load staticfiles %}
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'lolbet/css/style.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </head>
-  <body>
-
-    
-<div class="page-wrap">
- <div class="container" id="mainContainer">
-
-  <!-- logo -->
-      <div class="row">
-        <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <a href="">
-    <center><img class="img-responsive logo" src="{% static 'lolbet/Pictures/logo11.png' %}"></center>
-  </a>
-  </div>
-  <div class="col-md-4"></div>
-
-
-</div>
-     
-  <!-- end of logo -->
-
-    
-
-
-  <!-- Static navbar -->
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-
-          <li><a href="">Home</a></li>
-          <li  class="active"><a href="overview.html">Overview</a></li>
-          <li><a href="">Ranking</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact us</a></li>
-
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
+  {% extends "lolbet/base.html" %}
+  {% load staticfiles%}
+  {% block title %}LoL Bet - {{name}}{% endblock %}
 
   <!-- Page BODY -->
+  {% block body %}
 
   <div class="row">
 
     <div class="col-md-7">
       <div class="jumbotron">
-    <h2><span>{{streamer.channelName}}</span> - {{game.summonersName.name}}</h2>
+    <h2><span>{{name}}</span> - Stream</h2>
 
-    <center><iframe src="http://www.twitch.tv/{{streamer.channelName}}/embed" frameborder="0" scrolling="no" height="300" width="480"></iframe></center>
+    <center><iframe src="http://www.twitch.tv/{{name}}/embed" frameborder="0" scrolling="no" height="300" width="480"></iframe></center>
 
   </div>
 </div>
@@ -186,7 +124,7 @@
 
 
 
-</div>
+</div><!-- end table -->
 
     <hr>
 
@@ -204,8 +142,9 @@
                 <div class="image image-blue">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions0}}_0.jpg" alt="{{game.bannedChampions0}}"/>
-
+</div>
     </center>
+
             </td>
             <td>
               <center>
@@ -213,7 +152,7 @@
                 <div class="image image-blue">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions1}}_0.jpg" alt="{{game.bannedChampions1}}"/>
-
+</div>
     </center>
             </td>
             <td>
@@ -222,7 +161,7 @@
                 <div class="image image-blue">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions2}}_0.jpg" alt="{{game.bannedChampions2}}"/>
-
+</div>
     </center>
             </td>
 
@@ -234,7 +173,7 @@
                 <div class="image image-red">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions3}}_0.jpg" alt="{{game.bannedChampions3}}"/>
-
+</div>
     </center>
             </td>
             <td>
@@ -243,7 +182,7 @@
                 <div class="image image-red">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions4}}_0.jpg" alt="{{game.bannedChampions4}}"/>
-
+</div>
     </center>
             </td>
             <td>
@@ -252,7 +191,7 @@
                 <div class="image image-red">
 
       <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions5}}_0.jpg" alt="{{game.bannedChampions5}}"/>
-
+</div>
     </center>
             </td>
 
@@ -262,35 +201,13 @@
 
         </table>
 
-      </div>
+      </div> <!-- end table -->
 
       <hr>
 
+  </div><!-- end jumbotron -->
 
+ {% endblock %}
 
-
-
-  </div>
-
-
-
-
- 
-  
-  </div>
-
-</div>
-
-
- <!--Footer-->
-
-{% block footer %}{% endblock %}
-
- <!-- End of Footer -->
-
-
-
-
-
-  </body>
-  </html>
+{% block signAction %}"{% url "lolbet.views.streamer" name %}"{% endblock %}
+{% block loginAction %}"{% url "lolbet.views.streamer" name %}"{% endblock %}

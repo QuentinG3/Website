@@ -1,18 +1,17 @@
   <!DOCTYPE html>
   <html lang="en">
   <head>
+    {% load staticfiles %}
     <title>{% block title %}LoL Bet{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'lolbet/css/style.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </head>
   <body>
 
-    
 <div class="page-wrap">
  <div class="container" id="mainContainer">
 
@@ -20,7 +19,7 @@
       <div class="row">
         <div class="col-md-4"></div>
   <div class="col-md-4">
-    <a href="">
+    <a href="{% url "lolbet.views.home" %}">
     <center><img class="img-responsive logo" src="{% static 'lolbet/Pictures/logo11.png' %}"></center>
   </a>
   </div>
@@ -31,7 +30,7 @@
   <!-- end of logo -->
   
   <!-- navbar -->
-  {% block navbar %}
+  
   <!-- Static navbar -->
       <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -44,15 +43,17 @@
             </button>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
+            {% block navbar %}
             <ul class="nav navbar-nav">
 
-          <li><a href="">Home</a></li>
+          <li><a href="{% url "lolbet.views.home" %}">Home</a></li>
           <li><a href="">Overview</a></li>
           <li><a href="">Ranking</a></li>
           <li><a href="">FAQ</a></li>
           <li><a href="">Contact us</a></li>
 
         </ul>
+        {% endblock %}
         <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
         <li class="dropdown">
@@ -60,7 +61,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#"><span class="glyphicon   glyphicon-wrench"></span> Settings</a></li>
-            <li><a href="{% url "lolbet.views.deconnexion" %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            <li><a href="{% url "lolbet.views.deconnexion" %}?next=/streamer/Imaqtpie"><span class="glyphicon glyphicon-log-out"></span>Log Out</a></li>
           </ul>
         </li>
         {% else %}
@@ -71,7 +72,7 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
-  {% endblock %}
+  
   <!-- end of navbar -->
 
     
@@ -79,6 +80,9 @@
   <!-- Page BODY -->
   {% block body %}
   {% endblock %}
+
+</div>
+</div>
 
   <!-- Modal Sign Up -->
   <div class="modal fade" id="signModal" role="form">
@@ -91,7 +95,7 @@
           <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Acc</span>ount</span> <span><span>Crea</span>tion</span></h4>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal" name="signInForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateSignin()">
+          <form class="form-horizontal" name="signInForm" role="form" action={% block signAction %}"{% url "lolbet.views.home" %}"{% endblock %} method="post" onsubmit="return validateSignin()">
           
               {% csrf_token %}
 
@@ -167,7 +171,7 @@
           <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Log</span>in</span></h4>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal" name="loginForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateLogin()">
+          <form class="form-horizontal" name="loginForm" role="form" action={% block loginAction %}"{% url "lolbet.views.home" %}"{% endblock %} method="post" onsubmit="return validateLogin()">
           
               {% csrf_token %}
 
@@ -202,6 +206,217 @@
       
     </div>
   </div>
+
+
+  <script>
+
+  function toggleLogin() {
+      $('#signModal').modal('hide');
+      $('#loginModal').modal('toggle');
+    }
+
+    function toggleSignin() {
+      $('#loginModal').modal('hide');
+      $('#signModal').modal('toggle');
+    }
+
+    function validateLogin() {
+
+      var valid = true;
+
+      //Check username
+      var username = document.forms["loginForm"]["username"].value;
+      if (username == null || username == "") {
+        document.getElementById("logUserHint").innerHTML  = "! You must enter a login";
+        valid = false;
+      }else{
+        document.getElementById("logUserHint").innerHTML  = "";
+      }
+
+      //Check username
+      var password = document.forms["loginForm"]["password"].value;
+      if (password == null || password == "") {
+        document.getElementById("logPassHint").innerHTML  = "! You must enter a password";
+        valid = false;
+      }else{
+        document.getElementById("logPassHint").innerHTML  = "";
+      }
+
+      if(valid){
+        return true;
+      }else{
+        return false;
+      }
+
+
+    }
+
+    function validateSignin() {
+      var valid = true;
+
+      //Check username
+      var username = document.forms["signInForm"]["username"].value;
+      if (username.length < 3) {
+        document.getElementById("usernameHint").innerHTML  = "! Username must be minimum of 3 characters";
+        valid = false;
+      }else{
+        document.getElementById("usernameHint").innerHTML  = "";
+      }
+
+      //check email
+      var email = document.forms["signInForm"]["email"].value;
+      if (email == null || email==""){
+        document.getElementById("emailHint").innerHTML  = "! You must enter an email address";
+        valid = false;
+      }else{
+        document.getElementById("emailHint").innerHTML  = "";
+      }
+
+      //check password1
+      var pass = document.forms["signInForm"]["password1"].value;
+      if (pass.length < 8 ) {
+        document.getElementById("pass1Hint").innerHTML  = "! Password must be minimum of 8 characters";
+        valid = false;
+      }else{
+        document.getElementById("pass1Hint").innerHTML  = "";
+      }
+
+      //check password2
+      var pass2 = document.forms["signInForm"]["password2"].value;
+      if (pass!=pass2) {
+        document.getElementById("pass2Hint").innerHTML  = "! Passwords do not match";
+        valid = false;
+      }else{
+        document.getElementById("pass2Hint").innerHTML  = "";
+      }
+
+      //check birthdate
+      var birthdate = document.forms["signInForm"]["verifyAge"].value;
+      var age = calcAge(birthdate);
+      //check age min 18
+      if(age<18){
+        document.getElementById("ageHint").innerHTML  = "! You must be at least 18";
+        valid = false;
+      }else{
+        document.getElementById("ageHint").innerHTML  = "";
+      }
+
+      //check age max 130
+      if(age>130){
+        document.getElementById("ageHint").innerHTML  = "! You are not "+age+" years old !";
+        valid = false;
+      }else{
+        if(age>17){
+          document.getElementById("ageHint").innerHTML  = "";
+        }
+      }
+
+      //check birthdate entered
+      if (birthdate == null || birthdate==""){
+        document.getElementById("ageHint").innerHTML  = "! You must enter your date of birth";
+        valid = false;
+      }else{
+        if(age>17 && age<131){
+          document.getElementById("ageHint").innerHTML  = "";
+        }
+        
+      }
+
+      //check terms and services
+      var check = document.forms["signInForm"]["terms"].checked;
+      if(!check)
+      {
+        document.getElementById("termsHint").innerHTML  = "! You must agree with the term of uses";
+        valid = false
+      }else{
+        document.getElementById("termsHint").innerHTML  = "";
+      }
+      
+
+      
+
+      if(valid){
+        return true;
+      }else{
+        return false;
+      }
+
+    }
+
+    function calcAge(dateString) {
+      var birthday = +new Date(dateString);
+      return~~ ((Date.now() - birthday) / (31557600000));
+    }
+
+  //Clean Modal when it's hidden
+  $('#loginModal').on('hidden.bs.modal', function () {
+    document.getElementById("loginModal").className = "modal fade";
+
+    document.forms["loginForm"]["username"].value = "";
+    document.forms["loginForm"]["password"].value = "";
+
+    document.getElementById("logUserHint").innerHTML  = "";
+    document.getElementById("logPassHint").innerHTML  = "";
+
+})
+
+  //Clean Modal when it's hidden
+  $('#signModal').on('hidden.bs.modal', function () {
+    document.getElementById("signModal").className = "modal fade";
+
+    document.forms["signInForm"]["username"].value = "";
+    document.forms["signInForm"]["email"].value = "";
+    document.forms["signInForm"]["password1"].value = "";
+    document.forms["signInForm"]["password2"].value = "";
+    document.forms["signInForm"]["verifyAge"].value = "";
+    document.forms["signInForm"]["terms"].checked = false;
+
+    document.getElementById("usernameHint").innerHTML  = "";
+    document.getElementById("pass1Hint").innerHTML  = "";
+    document.getElementById("pass2Hint").innerHTML  = "";
+    document.getElementById("emailHint").innerHTML  = "";
+    document.getElementById("ageHint").innerHTML  = "";
+    document.getElementById("termsHint").innerHTML  = "";
+
+})
+
+  {% if errorLogin %}
+    document.getElementById("loginModal").className = "modal";
+    $('#loginModal').modal('toggle');
+
+    document.forms["loginForm"]["username"].value = "{{errorData.0}}";
+    document.getElementById("logPassHint").innerHTML  = "! Invalid Credidentials";
+
+  {% endif %}
+
+
+  {% if errorUser or errorEmail %}
+    document.getElementById("signModal").className = "modal";
+    $('#signModal').modal('toggle');
+
+    document.forms["signInForm"]["username"].value = "{{errorData.0}}";
+
+    document.forms["signInForm"]["email"].value = "{{errorData.1}}";
+
+    document.forms["signInForm"]["password1"].value = "{{errorData.2}}";
+
+    document.forms["signInForm"]["password2"].value = "{{errorData.3}}";
+
+    document.forms["signInForm"]["terms"].checked = true;
+
+    {% if errorUser %}
+      document.getElementById("usernameHint").innerHTML  = "! Username already used";
+    {% endif %}
+
+    {% if errorEmail %}
+      document.getElementById("emailHint").innerHTML  = "! Email already used";
+    {% endif %}
+
+  {% endif %}
+
+
+
+   </script>
 
  <!--Footer-->
 
