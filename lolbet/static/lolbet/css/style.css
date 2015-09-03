@@ -33,10 +33,10 @@ p.hint{
 
 div.modal-content{
 	background: url("../pictures/Shurima_Capital_after_Azir.jpg") no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 	color: #ddd;
 	border: 3px solid #000;
 }
@@ -57,7 +57,8 @@ div.modal-header{
 }
 
 div.modal-header>h4{
-	font-size: 20px;
+	font-size: 28px;
+	font-weight: bold;
 }
 
 div.modal-header>h4>span>span{
@@ -72,6 +73,10 @@ div.modal-header>h4>span{
 	text-transform: uppercase;
 	font-size: 24px;
 	color: black;
+}
+
+.modal-dialog{
+	width:650px;
 }
 
 .stream{

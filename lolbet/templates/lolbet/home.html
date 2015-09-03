@@ -56,8 +56,19 @@
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ user.username }}
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><span class="glyphicon   glyphicon-wrench"></span> Settings</a></li>
+            <li><a href="{% url "lolbet.views.deconnexion" %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+          </ul>
+        </li>
+        {% else %}
         <li><a href="" data-toggle="modal" data-target="#signModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
       </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -213,7 +224,7 @@
       var check = document.forms["signInForm"]["terms"].checked;
       if(!check)
       {
-        document.getElementById("termsHint").innerHTML  = "Your must agree with the term of uses";
+        document.getElementById("termsHint").innerHTML  = "! You must agree with the term of uses";
         valid = false
       }else{
         document.getElementById("termsHint").innerHTML  = "";
@@ -411,6 +422,8 @@ autoResize();
 
   //Clean Modal when it's hidden
   $('#loginModal').on('hidden.bs.modal', function () {
+    document.getElementById("loginModal").className = "modal fade";
+
     document.forms["loginForm"]["username"].value = "";
     document.forms["loginForm"]["password"].value = "";
 
@@ -421,6 +434,8 @@ autoResize();
 
   //Clean Modal when it's hidden
   $('#signModal').on('hidden.bs.modal', function () {
+    document.getElementById("signModal").className = "modal fade";
+
     document.forms["signInForm"]["username"].value = "";
     document.forms["signInForm"]["email"].value = "";
     document.forms["signInForm"]["password1"].value = "";
@@ -437,14 +452,52 @@ autoResize();
 
 })
 
-  {% for msg in error %}
-    document.getElementById("signModal").className = "modal";
-    $('#signModal').modal('toggle');
-    {% for data in msg %}
-      document.getElementById("id_username").value = data;
-    {% endfor %}
+  {% for username in errorLogin %}
+    document.getElementById("loginModal").className = "modal";
+    $('#loginModal').modal('toggle');
+
+    document.forms["loginForm"]["username"].value = "{{username}}";
+    document.getElementById("logPassHint").innerHTML  = "! Invalid Credidentials";
   {% empty %}
   {% endfor %}
+
+  {% for data in errorSignUpUser %}
+    document.getElementById("signModal").className = "modal";
+    $('#signModal').modal('toggle');
+
+
+      document.forms["signInForm"]["username"].value = "{{data.4}}";
+      document.getElementById("usernameHint").innerHTML  = "! Username already used";
+
+      document.forms["signInForm"]["email"].value = "{{data.1}}";
+
+      document.forms["signInForm"]["password1"].value = "{{data.2}}";
+
+      document.forms["signInForm"]["password2"].value = "{{data.3}}";
+
+      document.forms["signInForm"]["terms"].checked = true;
+
+  {% empty %}
+  {% endfor %}
+
+  {% for data in errorSignUpEmail %}
+    document.getElementById("signModal").className = "modal";
+    $('#signModal').modal('toggle');
+
+      document.forms["signInForm"]["username"].value = "{{data}}";
+
+      document.forms["signInForm"]["email"].value = "{{data.1}}";
+      document.getElementById("emailHint").innerHTML  = "! Email already used";
+
+      document.forms["signInForm"]["password1"].value = "{{data.2}}";
+
+      document.forms["signInForm"]["password2"].value = "{{data.3}}";
+
+      document.forms["signInForm"]["terms"].checked = true;
+  {% empty %}
+  {% endfor %}
+
+
 
    </script>
 

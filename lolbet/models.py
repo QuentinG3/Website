@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 import time
+from django.utils import timezone
+
+
+
 
 class Streamer(models.Model):
 	name = models.CharField(max_length = 100)
@@ -15,7 +19,11 @@ class Streamer(models.Model):
 	def __str__(self):
 		return self.name
 
-	
+	def timeSinceLastUpdate(self):
+		return (timezone.now()-self.dateModification).total_seconds()
+
+
+
 class SummonersName(models.Model):
 	name = models.CharField(max_length = 100)
 	nameId = models.BigIntegerField(null=True)
@@ -35,7 +43,14 @@ class Game(models.Model):
 	gameId = models.BigIntegerField()
 	gameStartTime = models.BigIntegerField()
 	summonersName = models.OneToOneField(SummonersName)
+	bannedChampions0 = models.CharField(max_length = 100,null=True)
+	bannedChampions1 = models.CharField(max_length = 100,null=True)
+	bannedChampions2 = models.CharField(max_length = 100,null=True)
+	bannedChampions3 = models.CharField(max_length = 100,null=True)
+	bannedChampions4 = models.CharField(max_length = 100,null=True)
+	bannedChampions5 = models.CharField(max_length = 100,null=True)
 
+	
 	def __str__(self):
 		return "{0} in game number {1}".format(self.summonersName.name,self.gameId)
 
@@ -44,16 +59,20 @@ class Game(models.Model):
 		return nowTime-int(self.gameStartTime)
 
 class Player(models.Model):
-	championId = models.BigIntegerField()
-	spell1Id = models.BigIntegerField()
-	spell2Id = models.BigIntegerField()
+	champion = models.CharField(max_length = 100,null=True)
+	spell1 = models.CharField(max_length = 100,null=True)
+	spell2 = models.CharField(max_length = 100,null=True)
 	summonerId = models.BigIntegerField()
-	teamId = models.BigIntegerField()
-	profilIcanId = models.BigIntegerField()
+	name = models.CharField(max_length = 100,null=True)
+	tier = models.CharField(max_length = 100,null=True)
+	division = models.CharField(max_length = 100,null=True)
+	wins = models.BigIntegerField(null=True)
+	losses = models.BigIntegerField(null=True)
+	leaguePoints = models.BigIntegerField(null=True)
 	game = models.ForeignKey('Game')
 
 	def __str__(self):
-		return "{0} jour le champion {1}".format(self.summonerId,self.championId)
+		return "{0} jour le champion {1}".format(self.summonerId,self.champion)
 
 
 
@@ -76,8 +95,3 @@ class Bet(models.Model):
 
 	def __str__(self):
 		return "User {0} bet won:{1} on game {2}".format(self.user.username,self.won,self.gameId)
-
-
-
-
-
