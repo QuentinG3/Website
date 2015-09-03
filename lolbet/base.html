@@ -1,0 +1,73 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>LoL Bet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lolbet/css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    
+<div class="page-wrap">
+ <div class="container" id="mainContainer">
+
+  <!-- logo -->
+      <div class="row">
+        <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <a href="">
+    <center><img class="img-responsive logo" src="{% static 'lolbet/Pictures/logo11.png' %}"></center>
+  </a>
+  </div>
+  <div class="col-md-4"></div>
+
+
+</div>
+  <!-- end of logo -->
+  
+  <!-- navbar -->
+  {% block navbar %}
+  {% endblock %}
+  <!-- end of navbar -->
+
+    
+
+  <!-- Page BODY -->
+  {% block body %}
+  {% endblock %}
+
+ <!--Footer-->
+
+<div class="container">
+      <footer class="site_footer">
+              <ul class="footer-nav">
+              <li><a href="">About LoLBet</a></li>
+              <li><a href="">FAQ</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Privacy Policy</a></li>
+            </ul>
+            
+           
+
+        <div class="bottom-footer">
+
+          <div class="wrapInner">
+            © 2015 LoLBet.net
+            <div class="socialMedia">
+            <a href=""><img width="28" style="vertical-align:middle;" src="{% static 'lolbet/Pictures/fb.ico' %}"></a>
+            <a href=""><img width="28" style="vertical-align:middle;" src="{% static 'lolbet/Pictures/twitter.ico' %}"></a>
+            </div>
+          </div>
+            
+            
+    </footer>
+
+    </div>
+    <!-- End of Footer -->
+  </body>
+  </html>

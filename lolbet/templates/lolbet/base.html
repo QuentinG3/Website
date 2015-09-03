@@ -1,0 +1,235 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>{% block title %}LoL Bet{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'lolbet/css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+
+    
+<div class="page-wrap">
+ <div class="container" id="mainContainer">
+
+  <!-- logo -->
+      <div class="row">
+        <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <a href="">
+    <center><img class="img-responsive logo" src="{% static 'lolbet/Pictures/logo11.png' %}"></center>
+  </a>
+  </div>
+  <div class="col-md-4"></div>
+
+
+</div>
+  <!-- end of logo -->
+  
+  <!-- navbar -->
+  {% block navbar %}
+  <!-- Static navbar -->
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+          <li><a href="">Home</a></li>
+          <li><a href="">Overview</a></li>
+          <li><a href="">Ranking</a></li>
+          <li><a href="">FAQ</a></li>
+          <li><a href="">Contact us</a></li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> {{ user.username }}
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><span class="glyphicon   glyphicon-wrench"></span> Settings</a></li>
+            <li><a href="{% url "lolbet.views.deconnexion" %}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+          </ul>
+        </li>
+        {% else %}
+        <li><a href="" data-toggle="modal" data-target="#signModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="" data-toggle="modal" data-target="#loginModal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        {% endif %}
+      </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+  {% endblock %}
+  <!-- end of navbar -->
+
+    
+
+  <!-- Page BODY -->
+  {% block body %}
+  {% endblock %}
+
+  <!-- Modal Sign Up -->
+  <div class="modal fade" id="signModal" role="form">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+          <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Acc</span>ount</span> <span><span>Crea</span>tion</span></h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" name="signInForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateSignin()">
+          
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="id_username">Username:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="id_username" maxlength="30" name="username" type="text" placeholder="Username">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="usernameHint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="id_email">Email:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="id_email" name="email" type="email" placeholder="your@email.com">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="emailHint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="id_password1">Password:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="id_password1" name="password1" type="password" placeholder="Password">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="pass1Hint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="id_password2">Confirm Password:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="id_password2" name="password2" type="password" placeholder="Confirm Password">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="pass2Hint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="id_verifyAge">Verify Age:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="id_verifyAge" name="verifyAge" type="date" style="width:160px">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="ageHint"><p>
+              </div>
+
+              <div class="form-group">        
+                <div class="col-sm-offset-3 col-sm-9">
+                  <div class="checkbox">
+                    <label><input name="terms" type="checkbox"> I agree to the <a href="">Term of Use</a> and <a href="">Privacy Policy</a></label>
+                  </div>
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="termsHint"><p>
+              </div>
+
+              <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
+              <p> Already a Member? <a href="javascript:void(0)" onclick="toggleLogin();">Login</a></p>
+                
+            </form>
+
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal Login -->
+  <div class="modal fade" id="loginModal" role="form">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+          <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Log</span>in</span></h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" name="loginForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateLogin()">
+          
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="log_username">Username:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="log_username" maxlength="30" name="username" type="text" placeholder="Username">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="logUserHint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="log_password">Password:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="log_password" name="password" type="password" placeholder="Password">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="logPassHint"><p>
+                  <a class="pass col-sm-offset-3 col-sm-9" href="">Forgot your password?</a>
+              </div>
+
+
+
+
+              <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
+              <p> New Member? <a href="javascript:void(0)" onclick="toggleSignin();">Register Now</a></p>
+                
+            </form>
+
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+ <!--Footer-->
+
+<div class="container">
+      <footer class="site_footer">
+              <ul class="footer-nav">
+              <li><a href="">About LoLBet</a></li>
+              <li><a href="">FAQ</a></li>
+              <li><a href="">Contact Us</a></li>
+              <li><a href="">Privacy Policy</a></li>
+            </ul>
+            
+           
+
+        <div class="bottom-footer">
+
+          <div class="wrapInner">
+            © 2015 LoLBet.net
+            <div class="socialMedia">
+            <a href=""><img width="28" style="vertical-align:middle;" src="{% static 'lolbet/Pictures/fb.ico' %}"></a>
+            <a href=""><img width="28" style="vertical-align:middle;" src="{% static 'lolbet/Pictures/twitter.ico' %}"></a>
+            </div>
+          </div>
+            
+            
+    </footer>
+
+    </div>
+    <!-- End of Footer -->
+  </body>
+  </html>
