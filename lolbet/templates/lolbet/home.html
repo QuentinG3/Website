@@ -95,7 +95,146 @@
       stream[i].style.width=width + "px";
     }
     
+    }
+
+    function toggleLogin() {
+      $('#signModal').modal('hide');
+      $('#loginModal').modal('toggle');
+    }
+
+    function toggleSignin() {
+      $('#loginModal').modal('hide');
+      $('#signModal').modal('toggle');
+    }
+
+    function validateLogin() {
+
+      var valid = true;
+
+      //Check username
+      var username = document.forms["loginForm"]["username"].value;
+      if (username == null || username == "") {
+        document.getElementById("logUserHint").innerHTML  = "! You must enter a login";
+        valid = false;
+      }else{
+        document.getElementById("logUserHint").innerHTML  = "";
+      }
+
+      //Check username
+      var password = document.forms["loginForm"]["password"].value;
+      if (password == null || password == "") {
+        document.getElementById("logPassHint").innerHTML  = "! You must enter a password";
+        valid = false;
+      }else{
+        document.getElementById("logPassHint").innerHTML  = "";
+      }
+
+      if(valid){
+        return true;
+      }else{
+        return false;
+      }
+
+
+    }
+
+    function validateSignin() {
+      var valid = true;
+
+      //Check username
+      var username = document.forms["signInForm"]["username"].value;
+      if (username.length < 3) {
+        document.getElementById("usernameHint").innerHTML  = "! Username must be minimum of 3 characters";
+        valid = false;
+      }else{
+        document.getElementById("usernameHint").innerHTML  = "";
+      }
+
+      //check email
+      var email = document.forms["signInForm"]["email"].value;
+      if (email == null || email==""){
+        document.getElementById("emailHint").innerHTML  = "! You must enter an email address";
+        valid = false;
+      }else{
+        document.getElementById("emailHint").innerHTML  = "";
+      }
+
+      //check password1
+      var pass = document.forms["signInForm"]["password1"].value;
+      if (pass.length < 8 ) {
+        document.getElementById("pass1Hint").innerHTML  = "! Password must be minimum of 8 characters";
+        valid = false;
+      }else{
+        document.getElementById("pass1Hint").innerHTML  = "";
+      }
+
+      //check password2
+      var pass2 = document.forms["signInForm"]["password2"].value;
+      if (pass!=pass2) {
+        document.getElementById("pass2Hint").innerHTML  = "! Passwords do not match";
+        valid = false;
+      }else{
+        document.getElementById("pass2Hint").innerHTML  = "";
+      }
+
+      //check birthdate
+      var birthdate = document.forms["signInForm"]["verifyAge"].value;
+      var age = calcAge(birthdate);
+      //check age min 18
+      if(age<18){
+        document.getElementById("ageHint").innerHTML  = "! You must be at least 18";
+        valid = false;
+      }else{
+        document.getElementById("ageHint").innerHTML  = "";
+      }
+
+      //check age max 130
+      if(age>130){
+        document.getElementById("ageHint").innerHTML  = "! You are not "+age+" years old !";
+        valid = false;
+      }else{
+        if(age>17){
+          document.getElementById("ageHint").innerHTML  = "";
+        }
+      }
+
+      //check birthdate entered
+      if (birthdate == null || birthdate==""){
+        document.getElementById("ageHint").innerHTML  = "! You must enter your date of birth";
+        valid = false;
+      }else{
+        if(age>17 && age<131){
+          document.getElementById("ageHint").innerHTML  = "";
+        }
+        
+      }
+
+      //check terms and services
+      var check = document.forms["signInForm"]["terms"].checked;
+      if(!check)
+      {
+        document.getElementById("termsHint").innerHTML  = "Your must agree with the term of uses";
+        valid = false
+      }else{
+        document.getElementById("termsHint").innerHTML  = "";
+      }
+      
+
+      
+
+      if(valid){
+        return true;
+      }else{
+        return false;
+      }
+
+    }
+
+    function calcAge(dateString) {
+      var birthday = +new Date(dateString);
+      return~~ ((Date.now() - birthday) / (31557600000));
 }
+
     window.onresize = function(event) {
       autoResize();
     
@@ -145,17 +284,17 @@ autoResize();
 
 
 <!-- Modal Sign Up -->
-  <div class="modal fade" id="signModal" role="dialog">
+  <div class="modal fade" id="signModal" role="form">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-user"></span></button>
+          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
           <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Acc</span>ount</span> <span><span>Crea</span>tion</span></h4>
         </div>
         <div class="modal-body">
-          <form class="form-horizontal" role="form" action="{% url "lolbet.views.home" %}" method="post">
+          <form class="form-horizontal" name="signInForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateSignin()">
           
               {% csrf_token %}
 
@@ -164,6 +303,7 @@ autoResize();
                 <div class="col-sm-9">
                   <input class="form-control" id="id_username" maxlength="30" name="username" type="text" placeholder="Username">
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="usernameHint"><p>
               </div>
 
               <div class="form-group">
@@ -171,6 +311,7 @@ autoResize();
                 <div class="col-sm-9">
                   <input class="form-control" id="id_email" name="email" type="email" placeholder="your@email.com">
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="emailHint"><p>
               </div>
 
               <div class="form-group">
@@ -178,6 +319,7 @@ autoResize();
                 <div class="col-sm-9">
                   <input class="form-control" id="id_password1" name="password1" type="password" placeholder="Password">
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="pass1Hint"><p>
               </div>
 
               <div class="form-group">
@@ -185,6 +327,7 @@ autoResize();
                 <div class="col-sm-9">
                   <input class="form-control" id="id_password2" name="password2" type="password" placeholder="Confirm Password">
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="pass2Hint"><p>
               </div>
 
               <div class="form-group">
@@ -192,18 +335,20 @@ autoResize();
                 <div class="col-sm-9">
                   <input class="form-control" id="id_verifyAge" name="verifyAge" type="date" style="width:160px">
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="ageHint"><p>
               </div>
 
               <div class="form-group">        
                 <div class="col-sm-offset-3 col-sm-9">
                   <div class="checkbox">
-                    <label><input type="checkbox"> I agree to the <a href="">Term of Use</a> and <a href="">Privacy Policy</a></label>
+                    <label><input name="terms" type="checkbox"> I agree to the <a href="">Term of Use</a> and <a href="">Privacy Policy</a></label>
                   </div>
                 </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="termsHint"><p>
               </div>
 
-              <button style="float:right;" type="submit" class="btn btn-default">Submit</button>
-              <p> Already a member? <a href="">Login</a></p>
+              <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
+              <p> Already a Member? <a href="javascript:void(0)" onclick="toggleLogin();">Login</a></p>
                 
             </form>
 
@@ -215,29 +360,84 @@ autoResize();
   </div>
 
   <!-- Modal Login -->
-  <div class="modal fade" id="loginModal" role="dialog">
+  <div class="modal fade" id="loginModal" role="form">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Login to Lol Bet</h4>
+          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+          <h4 class="modal-title"><span><span>LOL</span>BET</span> <span><span>Log</span>in</span></h4>
         </div>
         <div class="modal-body">
+          <form class="form-horizontal" name="loginForm" role="form" action="{% url "lolbet.views.home" %}" method="post" onsubmit="return validateLogin()">
           
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="log_username">Username:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="log_username" maxlength="30" name="username" type="text" placeholder="Username">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="logUserHint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="log_password">Password:</label>
+                <div class="col-sm-9">
+                  <input class="form-control" id="log_password" name="password" type="password" placeholder="Password">
+                </div>
+                <p class="hint col-sm-offset-3 col-sm-9" id="logPassHint"><p>
+                  <a class="pass col-sm-offset-3 col-sm-9" href="">Forgot your password?</a>
+              </div>
+
+
+
+
+              <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
+              <p> New Member? <a href="javascript:void(0)" onclick="toggleSignin();">Register Now</a></p>
+                
+            </form>
+
+          
         </div>
       </div>
       
     </div>
   </div>
 
-  <script>
-  {% for msg in error %}
 
+  <script>
+
+  //Clean Modal when it's hidden
+  $('#loginModal').on('hidden.bs.modal', function () {
+    document.forms["loginForm"]["username"].value = "";
+    document.forms["loginForm"]["password"].value = "";
+
+    document.getElementById("logUserHint").innerHTML  = "";
+    document.getElementById("logPassHint").innerHTML  = "";
+
+})
+
+  //Clean Modal when it's hidden
+  $('#signModal').on('hidden.bs.modal', function () {
+    document.forms["signInForm"]["username"].value = "";
+    document.forms["signInForm"]["email"].value = "";
+    document.forms["signInForm"]["password1"].value = "";
+    document.forms["signInForm"]["password2"].value = "";
+    document.forms["signInForm"]["verifyAge"].value = "";
+    document.forms["signInForm"]["terms"].checked = false;
+
+    document.getElementById("usernameHint").innerHTML  = "";
+    document.getElementById("pass1Hint").innerHTML  = "";
+    document.getElementById("pass2Hint").innerHTML  = "";
+    document.getElementById("emailHint").innerHTML  = "";
+    document.getElementById("ageHint").innerHTML  = "";
+    document.getElementById("termsHint").innerHTML  = "";
+
+})
+
+  {% for msg in error %}
     document.getElementById("signModal").className = "modal";
     $('#signModal').modal('toggle');
     {% for data in msg %}
@@ -245,6 +445,7 @@ autoResize();
     {% endfor %}
   {% empty %}
   {% endfor %}
+
    </script>
 
  <!--Footer-->

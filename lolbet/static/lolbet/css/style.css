@@ -5,6 +5,23 @@ body {
   -o-background-size: cover;
   background-size: cover;
 }
+
+a.pass{
+	text-transform: none;
+	color:#ddd;
+}
+
+p.hint{
+	color:red;
+	margin-top: 5px;
+	margin-bottom: 0px;
+}
+
+.close{
+	color:#fff;
+	opacity: 1;
+}
+
 .form-control {
 	width:80%;
 }

@@ -15,14 +15,15 @@ def home(request):
 	error = list()
 	if request.method == 'POST':  # S'il s'agit d'une requête POST
 		form = SignUpForm(request.POST)  # Nous reprenons les données
-		# Ici nous pouvons traiter les données du formulaire
 		username = form['username']
-		email = form['email']
-		password1 = form['password1']
-		password2 = form['password2']
-		verifyAge = form['verifyAge']
 
 		if form.is_valid(): # Nous vérifions que les données envoyées sont valides
+
+			# Ici nous pouvons traiter les données du formulaire
+			email = form.cleaned_data['email']
+			password1 = form.cleaned_data['password1']
+			password2 = form.cleaned_data['password2']
+			verifyAge = form.cleaned_data['verifyAge']
 
             # Créer utilisateur
 			if password1==password2:
@@ -30,11 +31,7 @@ def home(request):
 				Profil(user=user,verifyAge=verifyAge).save()
 		else:
 			data = list()
-			data.append(username)
-			data.append(email)
-			data.append(password1)
-			data.append(password2)
-			data.append(verifyAge)
+			print(username)
 			error.append(data)
 
 	else: # Si ce n'est pas du POST, c'est probablement une requête GET
