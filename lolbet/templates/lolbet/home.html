@@ -263,7 +263,7 @@
 
     {% for item in Streamers %}
         <div class="stream">
-        <a href="overview.html" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
+        <a href="{% url "lolbet.views.streamer" item.name %}" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
         <p class="stream-title">
           <a href="overview.html" title="{{item.status}}">
           {{item.status}}</a>
