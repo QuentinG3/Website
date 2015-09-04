@@ -1,11 +1,73 @@
-<form action="/lolbet/home" method="post">
-            <input type="hidden" name="csrfmiddlewaretoken" value="7m164Betv28qySCwifhzd9uMGZYyGfbm">
-            <p><label for="id_username">Username:</label> <input id="id_username" maxlength="30" name="username" type="text"></p>
-<p><label for="id_email">Email:</label> <input id="id_email" name="email" type="email"></p>
-<p><label for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password"></p>
-<p><label for="id_password2">Confirm Password:</label> <input id="id_password2" name="password2" type="password"></p>
-<p><label for="id_verifyAge">Verifyage:</label> <input id="id_verifyAge" name="verifyAge" type="text"></p>
-            <input type="submit" value="Submit">
-          </form>
+{% extends "lolbet/base.html" %}
 
-          {{streamer}}
+<!-- Title of the page -->
+{% block title %}LoL Bet - Login{% endblock %}
+
+<!-- Active button on navbar -->
+{% block navbar-login %}class = "active" {% endblock %}
+
+
+<!-- Body -->
+{% block body %}
+
+<script>
+  {% if user.is_authenticated %}
+    window.open("{% url "lolbet.views.home" %}","_self")
+  {% endif %}
+</script>
+
+  <div class="row">
+    <div class="col-md-7">
+      <div class="content">
+        <h2 style="text-align:center;"><span>LOL</span>BET <span>Log</span>in</h2>
+        <hr>
+
+        <form class="form-horizontal" name="loginForm" role="form" action="{% url "lolbet.views.connection" %}" method="post" onsubmit="return validateLogin()">
+          
+              {% csrf_token %}
+
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="log_username">Username:</label>
+                <div class="col-sm-7">
+                  <input class="form-control" id="log_username" maxlength="30" name="username" type="text" placeholder="Username">
+                </div>
+                <p class="hint col-sm-offset-4 col-sm-7" id="logUserHint"><p>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-4" for="log_password">Password:</label>
+                <div class="col-sm-7">
+                  <input class="form-control" id="log_password" name="password" type="password" placeholder="Password">
+                </div>
+                <p class="hint col-sm-offset-4 col-sm-7" id="logPassHint"><p>
+                  <a class="pass col-sm-offset-4 col-sm-7" href="">Forgot your password?</a>
+              </div>
+
+
+
+
+              <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
+              <p> New Member? <a href="{% url "lolbet.views.register" %}">Register Now</a></p>
+                
+            </form>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="content">
+        <h2><span>Some</span>Thing</h2>
+      </div>
+    </div>
+  </div>
+
+
+<script>   
+  {% if errorLogin %}
+    document.forms["loginForm"]["username"].value = "{{errorData.0}}";
+    document.getElementById("logPassHint").innerHTML  = "! Invalid Credidentials";
+
+  {% endif %}
+</script>
+
+{% endblock %}
+
+

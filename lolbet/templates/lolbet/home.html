@@ -9,6 +9,7 @@
 
 {% block body %}
 
+
    <div class="content" onchange="resizeAuto()" id="streamWindow">
     
     <h2><span>Stream</span> Wall</h2>
@@ -35,11 +36,13 @@
 
   </div>
 
-  <script>
+    <script>
 autoResize();
 window.onresize = function(event) {
       autoResize();
 }
 </script>
+
+
 
 {% endblock %}

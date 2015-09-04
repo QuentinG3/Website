@@ -10,6 +10,12 @@
 <!-- Body -->
 {% block body %}
 
+<script>
+  {% if user.is_authenticated %}
+    window.open("{% url "lolbet.views.home" %}","_self")
+  {% endif %}
+</script>
+
   <div class="row">
     <div class="col-md-7">
       <div class="content">
@@ -71,7 +77,7 @@
 
           <button style="float:right;" type="submit" name="loginSubmit" class="btn btn-default">Submit</button>
 
-          <p> Already a Member? <a href="javascript:void(0)" onclick="toggleLogin();">Login</a></p>
+          <p> Already a Member? <a href="{% url "lolbet.views.connection" %}" >Login</a></p>
 
         </form>
       </div>
@@ -85,13 +91,6 @@
 
 
 <script>   
-  {% if errorLogin %}
-    document.forms["loginForm"]["username"].value = "{{errorData.0}}";
-    document.getElementById("logPassHint").innerHTML  = "! Invalid Credidentials";
-
-  {% endif %}
-
-
   {% if errorUser or errorEmail %}
     document.forms["signInForm"]["username"].value = "{{errorData.0}}";
 
