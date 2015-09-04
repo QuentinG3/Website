@@ -11,6 +11,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from lolbet.apiReader import lookUpStreamer
+import json
+
+
+def send(request):
+	data = list()
+	data.append(1)
+	data.append(2)
+	data.append(3)
+	jso = dict()
+	jso['lol'] = data
+	print(jso)
+	return HttpResponse(json.dumps(jso))
 
 def username_present(username):
 	if User.objects.filter(username=username).exists():
