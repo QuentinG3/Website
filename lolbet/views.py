@@ -105,18 +105,63 @@ def date(request):
 	#updateCurrentGame()
 	return render(request,'lolbet/date.html',{'date':datetime.now(),'streamers':Streamer.objects.all()})
 
+def register(request):
+	errorUser = False
+	errorEmail = False
+	errorData = list()
+
+	valid = True
+
+	if request.method == 'POST':  # S'il s'agit d'une requête POST
+		signUpForm = SignUpForm(request.POST)  # Nous reprenons les données
+
+		if signUpForm.is_valid(): # Nous vérifions que les données envoyées sont valides
+
+			# Ici nous pouvons traiter les données du formulaire
+			username = signUpForm.cleaned_data['username'].lower()
+			email = signUpForm.cleaned_data['email'].lower()
+			password1 = signUpForm.cleaned_data['password1']
+			password2 = signUpForm.cleaned_data['password2']
+			verifyAge = signUpForm.cleaned_data['verifyAge']
+
+			#Check username already in DB
+			if(username_present(username)):
+				errorUser=True
+				valid = False
+
+			#check email already in DB
+			if(email_present(email)):
+				errorEmail=True
+				valid = False
+
+			#Create User 
+			if(valid):
+				user = User.objects.create_user(username,email,password1)
+				Profil(user=user,verifyAge=verifyAge).save()
+			else:
+				errorData.append(username)
+				errorData.append(email)
+				errorData.append(password1)
+				errorData.append(password2)
+				errorData.append(verifyAge)
+
+	else: # Si ce n'est pas du POST, c'est probablement une requête GET
+		signUpForm = SignUpForm()  # Nous créons un formulaire vide
+	return render(request,'lolbet/signup.html',locals())
+
+def connection(request):
+	return render(request,'lolbet/login.html',locals())
+
 def deconnexion(request):
     logout(request)
     return redirect(reverse(home))
 	
 def home(request):
-	errorUser = False
-	errorEmail = False
+	
 	errorLogin = False
 	errorData = list()
 
-	valid = True
-
+	
 	if request.method == 'POST':  # S'il s'agit d'une requête POST
 		signUpForm = SignUpForm(request.POST)  # Nous reprenons les données
 		loginForm = LoginForm(request.POST) #on reprends les données

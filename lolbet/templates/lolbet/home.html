@@ -2,65 +2,14 @@
 
 {% block title %}LoL Bet - Stream Wall{% endblock %}
 
-{% block navbar %}
-
-<ul class="nav navbar-nav">
-
-  <li class="active"><a href="">Home</a></li>
-  <li><a href="">Overview</a></li>
-  <li><a href="">Ranking</a></li>
-  <li><a href="">FAQ</a></li>
-  <li><a href="">Contact us</a></li>
-
-</ul>
-        {% endblock %}
+{% block navbar-home %}class="active"{% endblock %}
 
 
   <!-- Page BODY -->
 
 {% block body %}
- 
-  <script>
-  function autoResize() {
-      var el;
-      try {
- el = window.getComputedStyle(document.getElementById('streamWindow'), null)
-     .getPropertyValue('padding-left');
-} catch(e) {
- el = document.getElementById('streamWindow').currentStyle.padding-left;
-} 
-    var x = document.getElementById("streamWindow").clientWidth;
-    var y = parseInt(x) - 2*parseInt(el);
-    var width = (y-100)/4;
-    if(width < 155)
-    {
-      width = (y-70)/3;
-    }
-    if(width < 155)
-    {
-      width = (y-50)/2;
-    }
-    if(width < 155)
-    {
-      width = (y-20);
-    }
-    var stream = document.getElementsByClassName("stream");
-    for(i=0 ; i<stream.length ; i++)
-    {
-      stream[i].style.width=width + "px";
-    }
-    
-    }
-    window.onresize = function(event) {
-      autoResize();
-    
-}
-</script>
 
-  
-
-
-   <div class="jumbotron" onchange="resizeAuto()" id="streamWindow">
+   <div class="content" onchange="resizeAuto()" id="streamWindow">
     
     <h2><span>Stream</span> Wall</h2>
     <hr>
@@ -88,9 +37,9 @@
 
   <script>
 autoResize();
+window.onresize = function(event) {
+      autoResize();
+}
 </script>
 
 {% endblock %}
-
-{% block signAction %}"{% url "lolbet.views.home" %}"{% endblock %}
-{% block loginAction %}"{% url "lolbet.views.home" %}"{% endblock %}
