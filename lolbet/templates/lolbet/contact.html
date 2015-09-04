@@ -1,116 +1,15 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <title>SITE NAME</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{% extends "lolbet/base.html" %}
 
-  </head>
-  <body>
+{% block title %}LoL Bet - Contact Us{% endblock %}
 
-    
-<div class="page-wrap">
- <div class="container" id="mainContainer">
+{% block navbar-contact %}class="active"{% endblock %}
 
-  <!-- logo -->
-      <div class="row">
-        <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <a href="home.html">
-    <center><img class="img-responsive logo" src="Pictures/logo11.png"></center>
-  </a>
-  </div>
-  <div class="col-md-4"></div>
+{% block body %}
 
-
-</div>
-     
-  <!-- end of logo -->
-
-    
-
-
-  <!-- Static navbar -->
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-
-          <li><a href="home.html">Home</a></li>
-          <li><a href="overview.html">Overview</a></li>
-          <li><a href="">Ranking</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li class="active"><a href="contact.html">Contact us</a></li>
-
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-
-  <!-- Page BODY -->
-
-   <div class="jumbotron">
-
-
-  </div>
-
-
-
- 
-  
-  </div>
-
+<div class="content">
+  <h2><span>Con</span>tact <span>U</span>s</h2>
+  <hr>
+  <p>Here is the form to contact us</p>
 </div>
 
- <!--Footer-->
-<div class="container">
-      <footer class="site_footer">
-              <ul class="footer-nav">
-              <li><a href="">About LoLBet</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
-              <li><a href="">Privacy Policy</a></li>
-            </ul>
-            
-           
-
-        <div class="bottom-footer">
-
-          <div class="wrapInner">
-            © 2015 LoLBet.net
-            <div class="socialMedia">
-            <a href=""><img width="28" style="vertical-align:middle;" src="pictures/fb.ico"></a>
-            <a href=""><img width="28" style="vertical-align:middle;" src="pictures/twitter.ico"></a>
-            </div>
-          </div>
-            
-            
-    </footer>
-
-    </div>
-
-
-    <!-- End of Footer -->
-
-
-
-
-
-  </body>
-  </html>
+{% endblock %}

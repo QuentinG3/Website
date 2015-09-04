@@ -105,6 +105,21 @@ def date(request):
 	#updateCurrentGame()
 	return render(request,'lolbet/date.html',{'date':datetime.now(),'streamers':Streamer.objects.all()})
 
+def faq(request):
+	return render(request,'lolbet/faq.html',locals())
+
+def contact(request):
+	return render(request,'lolbet/contact.html',locals())
+
+def rank(request):
+	return render(request,'lolbet/rank.html',locals())
+
+def about(request):
+	return render(request,'lolbet/about.html',locals())
+
+def privacy(request):
+	return render(request,'lolbet/privacy.html',locals())
+
 def register(request):
 	errorUser = False
 	errorEmail = False
