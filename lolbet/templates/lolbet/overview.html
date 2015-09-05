@@ -1,6 +1,6 @@
   {% extends "lolbet/base.html" %}
   {% load staticfiles%}
-  {% block title %}LoL Bet - {{name}}{% endblock %}
+  {% block title %}LoL Bet - {{channelName}}{% endblock %}
 
   <!-- Page BODY -->
   {% block body %}
@@ -9,9 +9,9 @@
 
     <div class="col-md-7">
       <div class="content">
-    <h2><span>{{name}}</span> - Stream</h2>
+    <h2><span>{{channelName}}</span> - Stream</h2>
 
-    <center><iframe src="http://www.twitch.tv/{{name}}/embed" frameborder="0" scrolling="no" height="300" width="480"></iframe></center>
+    <center><iframe src="http://www.twitch.tv/{{channelName}}/embed" frameborder="0" scrolling="no" height="300" width="480"></iframe></center>
 
   </div>
 </div>
@@ -211,7 +211,7 @@
 function getInfo() {
   $.post("{% url "lolbet.views.gameInfo" %}",
         {
-          name: "{{name}}"
+          channelName: "{{channelName}}"
         },
         function(data,status){
             //alert(data+" - "+status)
@@ -224,6 +224,3 @@ function getInfo() {
   </script>
 
  {% endblock %}
-
-{% block signAction %}"{% url "lolbet.views.streamer" name %}"{% endblock %}
-{% block loginAction %}"{% url "lolbet.views.streamer" name %}"{% endblock %}

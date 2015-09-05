@@ -38,12 +38,29 @@ def email_present(email):
     return False
 
 def gameInfo(request):
-	name = request.POST['name']
-	print(name)
+	channelName = request.POST['channelName']
+	streamer=Streamer.objects.filter(channelName=channelName)[0]
+	lookUpStreamer(streamer)
+
+	summonerName=SummonersName.objects.filter(streamer=streamer)
+	inGameSummoner = list()
+	for item in summonerName:
+		if hasattr(item, 'game'):
+			inGameSummoner.append(item)
+
+
+	game=Game.objects.filter(summonersName=inGameSummoner[0])[0]
+	players=Player.objects.filter(game=game)
+
+	team1=players[0:5]
+	team2=players[5:10]
+
+	#TODO JSON
+	
 	return HttpResponse("hello")
 
 
-def streamer(request,name):
+def streamer(request,channelName):
 	'''
 	streamer=Streamer.objects.filter(name=name)[0]
 	lookUpStreamer(streamer)
