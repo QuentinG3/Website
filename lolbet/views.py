@@ -24,6 +24,7 @@ def send(request):
 	print(jso)
 	return HttpResponse(json.dumps(jso))
 
+
 def username_present(username):
 	if User.objects.filter(username=username).exists():
 		return True
@@ -94,7 +95,7 @@ def streamer(request,name):
 	else: # Si ce n'est pas du POST, c'est probablement une requête GET
 		signUpForm = SignUpForm()  # Nous créons un formulaire vide
 		loginForm = LoginForm(request.POST)
-	'''
+	
 	streamer=Streamer.objects.filter(name=name)[0]
 	lookUpStreamer(streamer)
 	summonerName=SummonersName.objects.filter(streamer=streamer)
@@ -109,7 +110,7 @@ def streamer(request,name):
 
 	team1=players[0:5]
 	team2=players[5:10]
-	'''
+	
 
 	return render(request,'lolbet/overview.html',locals())
 
@@ -133,77 +134,58 @@ def privacy(request):
 	return render(request,'lolbet/privacy.html',locals())
 
 def register(request):
-	errorUser = False
-	errorEmail = False
-	errorData = list()
+	jso = dict()
+	jso['username'] = "ok"
+	jso['email'] = "ok"
 
-	valid = True
+	valid=True
 
-	if request.method == 'POST':  # S'il s'agit d'une requête POST
-		signUpForm = SignUpForm(request.POST)  # Nous reprenons les données
+	signUpForm = SignUpForm(request.POST)  # Nous reprenons les données
 
-		if signUpForm.is_valid(): # Nous vérifions que les données envoyées sont valides
+	if signUpForm.is_valid(): # Nous vérifions que les données envoyées sont valides
 
 			# Ici nous pouvons traiter les données du formulaire
-			username = signUpForm.cleaned_data['username'].lower()
-			email = signUpForm.cleaned_data['email'].lower()
-			password1 = signUpForm.cleaned_data['password1']
-			password2 = signUpForm.cleaned_data['password2']
-			verifyAge = signUpForm.cleaned_data['verifyAge']
+		username = signUpForm.cleaned_data['username'].lower()
+		email = signUpForm.cleaned_data['email'].lower()
+		password1 = signUpForm.cleaned_data['password1']
+		password2 = signUpForm.cleaned_data['password2']
+		verifyAge = signUpForm.cleaned_data['verifyAge']
 
 			#Check username already in DB
-			if(username_present(username)):
-				errorUser=True
-				valid = False
+		if(username_present(username)):
+			valid = False
+			jso['username'] = "not"
 
 			#check email already in DB
-			if(email_present(email)):
-				errorEmail=True
-				valid = False
+		if(email_present(email)):
+			valid = False
+			jso['email'] = "not"
 
 			#Create User 
-			if(valid):
-				user = User.objects.create_user(username,email,password1)
-				Profil(user=user,verifyAge=verifyAge).save()
+		if(valid):
+			user = User.objects.create_user(username,email,password1)
+			Profil(user=user,verifyAge=verifyAge).save()
 
-				login(request, authenticate(username=username, password=password1))
-				return redirect(home)
-			else:
-				errorData.append(username)
-				errorData.append(email)
-				errorData.append(password1)
-				errorData.append(password2)
-				errorData.append(verifyAge)
+			login(request, authenticate(username=username, password=password1))
 
-	else: # Si ce n'est pas du POST, c'est probablement une requête GET
-		signUpForm = SignUpForm()  # Nous créons un formulaire vide
-	return render(request,'lolbet/signup.html',locals())
+	return HttpResponse(json.dumps(jso))
 
-def connection(request):
-	errorLogin = False
-	errorData = list()
-
-	if request.method == 'POST':  # S'il s'agit d'une requête POST
-		loginForm = LoginForm(request.POST) #on reprends les données
+def connect(request):
+	valid=False
+	loginForm = LoginForm(request.POST)
+	if loginForm.is_valid():
+		username = loginForm.cleaned_data["username"]
+		password = loginForm.cleaned_data["password"]
 		
-		if loginForm.is_valid(): # On a affaire à une connection
-			username = loginForm.cleaned_data["username"]
-			password = loginForm.cleaned_data["password"]
+		user = authenticate(username=username, password=password)
 
-			user = authenticate(username=username, password=password)
+		if user:
+			valid=True
+			login(request, user)
 
-			if user:
-				login(request, user)
-			else:
-				errorData.append(username)
-				errorLogin = True
-
-	else: # Si ce n'est pas du POST, c'est probablement une requête GET
-		loginForm = LoginForm(request.POST)
-	return render(request,'lolbet/login.html',locals())
+	return HttpResponse(valid)
 
 def deconnexion(request):
-
     logout(request)
     return redirect(reverse(home))
 	

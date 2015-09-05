@@ -3,7 +3,7 @@
 	<script>
 $(document).ready(function(){
     $("button").click(function(){
-        $.get("{% url "lolbet.views.send" %}", function(data, status){
+        $.post("{% url "lolbet.views.send" %}",{}, function(data, status){
             //alert("Data: " + data + "\nStatus: " + status);
             object = JSON.parse(data)
             alert(object.lol[2])
@@ -16,12 +16,13 @@ $(document).ready(function(){
         });
     });
 });
+
 </script>
 	<div class="content">
-	<button>Send an HTTP GET request to a page and get the result back</button>
+	{% csrf_token %}<button>Send an HTTP GET request to a page and get the result back</button>
 	<p>Voici la date : {{ date }} </p>
 	<p id="id">Initla text<p>
-
+    
 	{% for streamer in streamers %}
 	<p>{{streamer.name}}</p>
 	<p>{{streamer.online}}</p>
