@@ -3,6 +3,7 @@ from urllib.error import URLError
 from urllib.request import Request
 import json
 from lolbet.models import Streamer,SummonersName,Game,Player
+from django.utils import timezone
 
 #API key for Riot API
 apiKey = "0f161ba9-ce84-42ab-b53d-2dbe14dd2f83"
@@ -156,52 +157,55 @@ def getPlayerLeagueByIds(liste,region):
 
 
 def lookUpStreamer(streamer):
-	sumNameList = streamer.summonersname_set.all()
-	fillSumId(sumNameList)
-	for sumName in sumNameList:
-		if sumName.nameId is not None:
-			dictionnary = getCurrentGameDictionnary(sumName.nameId,sumName.region)
-			if len(dictionnary) == 0:
-				if hasattr(sumName,'game'):
-					game = sumName.game
-					playerList = game.player_set.all()
-					for player in playerList:
-						player.delete()
-					game.delete()
-			else:
-				if hasattr(sumName,'game'):
-					game = sumName.game
-					playerList = game.player_set.all()
-					for player in playerList:
-						player.delete()
-					game.delete()
-				#On vérifie que l'utilisateur est en ranked
-				if dictionnary['gameQueueConfigId'] == 4:
-					championDictionnary = getChampionList(sumName.region)
-					summonerSpellDictionnary = getSummonerSpellList(sumName.region)
-					summonersIdList = list()
-					for participant in dictionnary['participants']:
-						summonersIdList.append(participant['summonerId'])
-					leaguePlayerDictionnary = getPlayerLeagueByIds(summonersIdList,sumName.region)
+	if streamer.timeSinceLastGameCheck() > 60:
+		streamer.lastGameCheck = timezone.now()
+		streamer.save()
+		sumNameList = streamer.summonersname_set.all()
+		fillSumId(sumNameList)
+		for sumName in sumNameList:
+			if sumName.nameId is not None:
+				dictionnary = getCurrentGameDictionnary(sumName.nameId,sumName.region)
+				if len(dictionnary) == 0:
+					if hasattr(sumName,'game'):
+						game = sumName.game
+						playerList = game.player_set.all()
+						for player in playerList:
+							player.delete()
+						game.delete()
+				else:
+					if hasattr(sumName,'game'):
+						game = sumName.game
+						playerList = game.player_set.all()
+						for player in playerList:
+							player.delete()
+						game.delete()
+					#On vérifie que l'utilisateur est en ranked
+					if dictionnary['gameQueueConfigId'] == 4:
+						championDictionnary = getChampionList(sumName.region)
+						summonerSpellDictionnary = getSummonerSpellList(sumName.region)
+						summonersIdList = list()
+						for participant in dictionnary['participants']:
+							summonersIdList.append(participant['summonerId'])
+						leaguePlayerDictionnary = getPlayerLeagueByIds(summonersIdList,sumName.region)
 
 		
-					bannedChampions0 = (championDictionnary['data'][str(dictionnary['bannedChampions'][0]['championId'])]['name']).replace(" ","").replace("'","")
-					bannedChampions1 = (championDictionnary['data'][str(dictionnary['bannedChampions'][2]['championId'])]['name']).replace(" ","").replace("'","")
-					bannedChampions2 = (championDictionnary['data'][str(dictionnary['bannedChampions'][4]['championId'])]['name']).replace(" ","").replace("'","")
-					bannedChampions3 = (championDictionnary['data'][str(dictionnary['bannedChampions'][1]['championId'])]['name']).replace(" ","").replace("'","")
-					bannedChampions4 = (championDictionnary['data'][str(dictionnary['bannedChampions'][3]['championId'])]['name']).replace(" ","").replace("'","")
-					bannedChampions5 = (championDictionnary['data'][str(dictionnary['bannedChampions'][5]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions0 = (championDictionnary['data'][str(dictionnary['bannedChampions'][0]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions1 = (championDictionnary['data'][str(dictionnary['bannedChampions'][2]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions2 = (championDictionnary['data'][str(dictionnary['bannedChampions'][4]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions3 = (championDictionnary['data'][str(dictionnary['bannedChampions'][1]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions4 = (championDictionnary['data'][str(dictionnary['bannedChampions'][3]['championId'])]['name']).replace(" ","").replace("'","")
+						bannedChampions5 = (championDictionnary['data'][str(dictionnary['bannedChampions'][5]['championId'])]['name']).replace(" ","").replace("'","")
 
 
-					partie = Game(gameId=dictionnary['gameId'],gameStartTime = dictionnary['gameStartTime'],summonersName = sumName, bannedChampions0= bannedChampions0,bannedChampions1=bannedChampions1,bannedChampions2=bannedChampions2,bannedChampions3= bannedChampions3,bannedChampions4=bannedChampions4,bannedChampions5=bannedChampions5)
-					partie.save()
+						partie = Game(gameId=dictionnary['gameId'],gameStartTime = dictionnary['gameStartTime'],summonersName = sumName, bannedChampions0= bannedChampions0,bannedChampions1=bannedChampions1,bannedChampions2=bannedChampions2,bannedChampions3= bannedChampions3,bannedChampions4=bannedChampions4,bannedChampions5=bannedChampions5)
+						partie.save()
 	
-					for participant in dictionnary['participants']:
-						joueur = Player(name=participant['summonerName'], champion = (championDictionnary['data'][str(participant['championId'])]['name']).replace(" ","").replace("'",""),summonerId = participant['summonerId'],spell1 = (summonerSpellDictionnary['data'][str(participant['spell1Id'])]['name']).replace("Ignite","Dot"),spell2= (summonerSpellDictionnary['data'][str(participant['spell2Id'])]['name']).replace("Ignite","Dot"),game=partie)
-						
-						joueur.tier = (leaguePlayerDictionnary[str(participant['summonerId'])][0]['tier']).lower()
-						joueur.leaguePoints = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['leaguePoints']
-						joueur.wins = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['wins']
-						joueur.losses = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['losses']
-						joueur.division = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['division']
-						joueur.save()
+						for participant in dictionnary['participants']:
+							joueur = Player(name=participant['summonerName'], champion = (championDictionnary['data'][str(participant['championId'])]['name']).replace(" ","").replace("'",""),summonerId = participant['summonerId'],spell1 = (summonerSpellDictionnary['data'][str(participant['spell1Id'])]['name']).replace("Ignite","Dot"),spell2= (summonerSpellDictionnary['data'][str(participant['spell2Id'])]['name']).replace("Ignite","Dot"),game=partie)
+							
+							joueur.tier = (leaguePlayerDictionnary[str(participant['summonerId'])][0]['tier']).lower()
+							joueur.leaguePoints = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['leaguePoints']
+							joueur.wins = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['wins']
+							joueur.losses = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['losses']
+							joueur.division = leaguePlayerDictionnary[str(participant['summonerId'])][0]['entries'][0]['division']
+							joueur.save()

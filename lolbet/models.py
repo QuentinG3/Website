@@ -15,13 +15,13 @@ class Streamer(models.Model):
 	preview = models.CharField(max_length = 200,default="")
 	dateCreation = models.DateTimeField(auto_now_add=True)
 	dateModification = models.DateTimeField(auto_now = True)
+	lastGameCheck = models.DateTimeField(default=timezone.now())
 
 	def __str__(self):
 		return self.name
 
-	def timeSinceLastUpdate(self):
-		return (timezone.now()-self.dateModification).total_seconds()
-
+	def timeSinceLastGameCheck(self):
+		return (timezone.now()-self.lastGameCheck).total_seconds()
 
 
 class SummonersName(models.Model):
@@ -31,13 +31,12 @@ class SummonersName(models.Model):
 	streamer = models.ForeignKey('Streamer')
 	dateCreation = models.DateTimeField(auto_now_add=True)
 	dateModification = models.DateTimeField(auto_now = True)
+	
 
 	def __str__(self):
 		return self.name
 
-	def getGameTime(self):
-		nowTime = int(time.time())*1000
-		return nowTime-int(self.gameStartTime)
+	
 
 class Game(models.Model):
 	gameId = models.BigIntegerField()
