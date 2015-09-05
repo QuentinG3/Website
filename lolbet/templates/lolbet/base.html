@@ -102,8 +102,9 @@ function validateSigninAjax(){
           verifyAge: document.forms["signInForm"]["verifyAge"].value
         },
         function(data,status){
-            var object = JSON.parse(data)
+            var object = JSON.parse(data);
             //alert("Data: " + data+ object.email + object.username + "\nStatus: " + status);
+
 
             if(object.username == "ok" && object.email == "ok")
             {

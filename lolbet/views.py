@@ -47,37 +47,35 @@ def gameInfo(request):
 	for item in summonerName:
 		if hasattr(item, 'game'):
 			inGameSummoner.append(item)
-
+	if len(inGameSummoner) == 0:
+		return HttpResponse(False)
+	
 
 	game=Game.objects.filter(summonersName=inGameSummoner[0])[0]
 	players=Player.objects.filter(game=game)
 
-	team1=players[0:5]
-	team2=players[5:10]
-
-	#TODO JSON
+	team1=list(players[0:5])
+	team2=list(players[5:10])
 	
-	return HttpResponse("hello")
+	player1 = team1[0]
+	myDict=player1.__dict__
+	
+	
+	jsonData = dict()
+	jsonData['summonerName'] = inGameSummoner[0].name
+	jsonData['game'] = game.__dict__
+	jsonData['team1'] = list()
+	jsonData['team2'] = list()
+	for player in team1:
+		jsonData['team1'].append(player.__dict__)
+	for player in team2:
+		jsonData['team2'].append(player.__dict__)
+	print(jsonData)
+	
+	return HttpResponse(json.dumps(jsonData))
 
 
 def streamer(request,channelName):
-	'''
-	streamer=Streamer.objects.filter(name=name)[0]
-	lookUpStreamer(streamer)
-	summonerName=SummonersName.objects.filter(streamer=streamer)
-	gameList = list()
-	for item in summonerName:
-		if hasattr(item, 'game'):
-			gameList.append(item)
-
-
-	game=Game.objects.filter(summonersName=gameList[0])[0]
-	players=Player.objects.filter(game=game)
-
-	team1=players[0:5]
-	team2=players[5:10]
-	'''
-
 	return render(request,'lolbet/overview.html',locals())
 
 def date(request):

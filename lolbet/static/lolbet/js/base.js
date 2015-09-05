@@ -1,3 +1,357 @@
+function updateLookup(JSON,lookup)
+{
+  //Premier header
+              var header = document.createElement("h2");
+              //TODO => name
+              var headerText = document.createTextNode("NAME TODO");
+              header.appendChild(headerText);
+              lookup.appendChild(header);
+
+              //Second header
+              var header2 = document.createElement("h5");
+              //TODO => Region
+              var headerText2 = document.createTextNode("Ranked Solo | Summoner's Rift |");
+              header2.appendChild(headerText2);
+              lookup.appendChild(header2);
+
+              //hr
+              var hr1 = document.createElement("hr");
+              lookup.appendChild(hr1);
+
+              //div table
+              var tableR = document.createElement("div");
+              tableR.className = "table-responsive table-bg";
+              lookup.appendChild(tableR);
+
+              //table
+              var table = document.createElement("table");
+              table.className = "table";
+              tableR.appendChild(table);
+
+              //table body
+              var tbody = document.createElement("tbody");
+              table.appendChild(tbody);
+
+              var tr1 = document.createElement("tr");
+              tbody.appendChild(tr1);
+
+              //Boucle for pour les joueurs de la team 1
+
+                var td1 = document.createElement("td");
+                tr1.appendChild(td1);
+
+                var center1 = document.createElement("center");
+                td1.appendChild(center1);
+
+                //Player Name
+                var h50 = document.createElement("h5");
+                h50.className = "summoner-name-blue";
+                var h50text = document.createTextNode("Player1Name");
+                h50.appendChild(h50text);
+                center1.appendChild(h50);
+
+                var imageDiv = document.createElement("div");
+                imageDiv.className = "image image-blue";
+                td1.appendChild(imageDiv);
+
+                //Champion name img x2
+                var img = document.createElement("img");
+                img.setAttribute("width", "145");
+                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Anivia_0.jpg");
+                img.setAttribute("alt", "nomChampion");
+                imageDiv.appendChild(img);
+
+                //KDA
+                var h51 = document.createElement("h5");
+                h51.className = "kda";
+                var h51text = document.createTextNode("-");
+                h51.appendChild(h51text);
+                imageDiv.appendChild(h51);
+
+                //WL
+                var h52 = document.createElement("h5");
+                h52.className = "wl";
+                var h52text = document.createTextNode("W:XXX - L:XXX ");
+                h52.appendChild(h52text);
+                imageDiv.appendChild(h52);
+
+                //bg
+                var h53 = document.createElement("h5");
+                h53.className = "bg";
+                imageDiv.appendChild(h53);
+
+                //Division image diamond*2 (tier)*2 (division) (leaguepoints)
+                var tooltipDiv = document.createElement("a");
+                tooltipDiv.className = "tooltip3";
+                tooltipDiv.setAttribute("href","#");
+                imageDiv.appendChild(tooltipDiv);
+
+                var imgLeague = document.createElement("img");
+                imgLeague.className = "league";
+                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/diamond-rewards-lol.png");
+                tooltipDiv.appendChild(imgLeague);
+
+                var spanTooltipDiv = document.createElement("span");
+                tooltipDiv.appendChild(spanTooltipDiv);
+                
+                var spanCenter = document.createElement("center");
+                spanTooltipDiv.appendChild(spanCenter);
+
+                var spanBold = document.createElement("b");
+                var spanBoldText = document.createTextNode("Diamond I - 85 LP");
+                spanBold.appendChild(spanBoldText);
+                spanCenter.appendChild(spanBold);
+
+                //League division
+                var h6 = document.createElement("h6");
+                h6.className = "leaguen";
+                var h6Text = document.createTextNode("I");
+                h6.appendChild(h6Text);
+                imageDiv.appendChild(h6);
+
+                //runes et masteries
+                var tooltipRunes = document.createElement("a");
+                tooltipRunes.className = "tooltip2";
+                tooltipRunes.setAttribute("href","");
+                imageDiv.appendChild(tooltipRunes);
+
+                var imgRunes = document.createElement("img");
+                imgRunes.className = "runes";
+                imgRunes.setAttribute("src","http://vignette2.wikia.nocookie.net/leagueoflegends/images/9/90/7_Rune_pages.png/revision/latest/scale-to-width-down/99?cb=20150423134410&format=webp");
+                tooltipRunes.appendChild(imgRunes);
+
+                var spanTooltipRunes = document.createElement("span");
+                tooltipRunes.appendChild(spanTooltipRunes);
+
+                var spanBoldRunes = document.createElement("b");
+                var runesHeader = document.createTextNode("Runes:");
+                spanBoldRunes.appendChild(runesHeader);
+                spanTooltipRunes.appendChild(spanBoldRunes);
+
+                var br1 = document.createElement("br");
+                spanTooltipRunes.appendChild(br1);
+
+                var br2 = document.createElement("br");
+                spanTooltipRunes.appendChild(br2);
+
+                var spanBoldMast = document.createElement("b");
+                var mastHeader = document.createTextNode("Masteries:");
+                spanBoldMast.appendChild(mastHeader);
+                spanTooltipRunes.appendChild(spanBoldMast);
+
+                //summoners 1 et 2
+                var summ1 = document.createElement("img");
+                summ1.className = "summoner1";
+                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerFlash.png");
+                imageDiv.appendChild(summ1);
+                var summ2 = document.createElement("img");
+                summ2.className = "summoner2";
+                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerDot.png");
+                imageDiv.appendChild(summ2);
+
+              //Espace entre les deux teams
+              var trm = document.createElement("tr");
+              tbody.appendChild(trm);
+
+              var tdm = document.createElement("td");
+              tdm.style.height="80px";
+              trm.appendChild(tdm);
+
+              var tr2 = document.createElement("tr");
+              tbody.appendChild(tr2);
+
+              //Boucle for pour les joueurs de la team 2
+
+                var td1 = document.createElement("td");
+                tr2.appendChild(td1);
+
+                var center1 = document.createElement("center");
+                td1.appendChild(center1);
+
+                //Player Name
+                var h50 = document.createElement("h5");
+                h50.className = "summoner-name-red";
+                var h50text = document.createTextNode("Player1Name");
+                h50.appendChild(h50text);
+                center1.appendChild(h50);
+
+                var imageDiv = document.createElement("div");
+                imageDiv.className = "image image-red";
+                td1.appendChild(imageDiv);
+
+                //Champion name img x2
+                var img = document.createElement("img");
+                img.setAttribute("width", "145");
+                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Anivia_0.jpg");
+                img.setAttribute("alt", "nomChampion");
+                imageDiv.appendChild(img);
+
+                //KDA
+                var h51 = document.createElement("h5");
+                h51.className = "kda";
+                var h51text = document.createTextNode("-");
+                h51.appendChild(h51text);
+                imageDiv.appendChild(h51);
+
+                //WL
+                var h52 = document.createElement("h5");
+                h52.className = "wl";
+                var h52text = document.createTextNode("W:XXX - L:XXX ");
+                h52.appendChild(h52text);
+                imageDiv.appendChild(h52);
+
+                //bg
+                var h53 = document.createElement("h5");
+                h53.className = "bg";
+                imageDiv.appendChild(h53);
+
+                //Division image diamond*2 (tier)*2 (division) (leaguepoints)
+                var tooltipDiv = document.createElement("a");
+                tooltipDiv.className = "tooltip3";
+                tooltipDiv.setAttribute("href","#");
+                imageDiv.appendChild(tooltipDiv);
+
+                var imgLeague = document.createElement("img");
+                imgLeague.className = "league";
+                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/diamond-rewards-lol.png");
+                tooltipDiv.appendChild(imgLeague);
+
+                var spanTooltipDiv = document.createElement("span");
+                tooltipDiv.appendChild(spanTooltipDiv);
+                
+                var spanCenter = document.createElement("center");
+                spanTooltipDiv.appendChild(spanCenter);
+
+                var spanBold = document.createElement("b");
+                var spanBoldText = document.createTextNode("Diamond I - 85 LP");
+                spanBold.appendChild(spanBoldText);
+                spanCenter.appendChild(spanBold);
+
+                //League division
+                var h6 = document.createElement("h6");
+                h6.className = "leaguen";
+                var h6Text = document.createTextNode("I");
+                h6.appendChild(h6Text);
+                imageDiv.appendChild(h6);
+
+                //runes et masteries
+                var tooltipRunes = document.createElement("a");
+                tooltipRunes.className = "tooltip2";
+                tooltipRunes.setAttribute("href","");
+                imageDiv.appendChild(tooltipRunes);
+
+                var imgRunes = document.createElement("img");
+                imgRunes.className = "runes";
+                imgRunes.setAttribute("src","http://vignette2.wikia.nocookie.net/leagueoflegends/images/9/90/7_Rune_pages.png/revision/latest/scale-to-width-down/99?cb=20150423134410&format=webp");
+                tooltipRunes.appendChild(imgRunes);
+
+                var spanTooltipRunes = document.createElement("span");
+                tooltipRunes.appendChild(spanTooltipRunes);
+
+                var spanBoldRunes = document.createElement("b");
+                var runesHeader = document.createTextNode("Runes:");
+                spanBoldRunes.appendChild(runesHeader);
+                spanTooltipRunes.appendChild(spanBoldRunes);
+
+                var br1 = document.createElement("br");
+                spanTooltipRunes.appendChild(br1);
+
+                var br2 = document.createElement("br");
+                spanTooltipRunes.appendChild(br2);
+
+                var spanBoldMast = document.createElement("b");
+                var mastHeader = document.createTextNode("Masteries:");
+                spanBoldMast.appendChild(mastHeader);
+                spanTooltipRunes.appendChild(spanBoldMast);
+
+                //summoners 1 et 2
+                var summ1 = document.createElement("img");
+                summ1.className = "summoner1";
+                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerFlash.png");
+                imageDiv.appendChild(summ1);
+                var summ2 = document.createElement("img");
+                summ2.className = "summoner2";
+                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerDot.png");
+                imageDiv.appendChild(summ2);
+
+              //HR
+              var hr2 = document.createElement("hr");
+              lookup.appendChild(hr2);
+
+              //Header banned champions
+              var headerBanned = document.createElement("h2");
+              var headerSpan = document.createElement("span");
+              var headerSpanText = document.createTextNode("Banned");
+              headerSpan.appendChild(headerSpanText);
+              headerBanned.appendChild(headerSpan);
+              var headerBannedText = document.createTextNode(" Champions");
+              headerBanned.appendChild(headerBannedText);
+              lookup.appendChild(headerBanned);
+
+              //create div table-responsive
+              tableRB = document.createElement("div");
+              tableRB.className = "table-responsive";
+              lookup.appendChild(tableRB);
+
+              //create table table
+              tableB = document.createElement("table");
+              tableB.className = "table";
+              tableRB.appendChild(tableB);
+
+              //create tbody
+              tbodyB = document.createElement("tbody");
+              tableB.appendChild(tbodyB);
+
+              //create tr
+              trB = document.createElement("tr");
+              tbodyB.appendChild(trB);
+
+              //boucle for * nombre de ban blue (3 normalement)
+
+                //create td
+                tdB = document.createElement("td");
+                trB.appendChild(tdB);
+
+                //create center
+                centerB = document.createElement("center");
+                tdB.appendChild(centerB);
+
+                //create div image image-blue
+                bannedDiv = document.createElement("div")
+                bannedDiv.className = "image image-blue";
+                centerB.appendChild(bannedDiv);
+
+                //create img ChampionBannedBlueName
+                bannedImg = document.createElement("img");
+                bannedImg.setAttribute("width","145");
+                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Skarner_0.jpg");
+                bannedImg.setAttribute("alt","championName");
+                bannedDiv.appendChild(bannedImg);
+
+              //boucle for * nombre de ban red (3 normalement)
+
+                //create td
+                tdB = document.createElement("td");
+                trB.appendChild(tdB);
+
+                //create center
+                centerB = document.createElement("center");
+                tdB.appendChild(centerB);
+
+                //create div image image-blue
+                bannedDiv = document.createElement("div")
+                bannedDiv.className = "image image-red";
+                centerB.appendChild(bannedDiv);
+
+                //create img ChampionBannedBlueName
+                bannedImg = document.createElement("img");
+                bannedImg.setAttribute("width","145");
+                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Skarner_0.jpg");
+                bannedImg.setAttribute("alt","championName");
+                bannedDiv.appendChild(bannedImg);  
+
+}
+
 // using jQuery
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection

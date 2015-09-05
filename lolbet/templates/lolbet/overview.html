@@ -28,9 +28,13 @@
 
   </div>
 
+  <div class="content" id="lookup">
+    
+  </div>
+
    
 
-  <div class="content">
+  <div class="content" style="display:none">
     <h2>{{game.summonersName.name}}</h2>
     <h5>Ranked Solo | Summoner's Rift | {{gameList.0.region}}</h5>
     <hr>
@@ -208,13 +212,29 @@
   </div><!-- end jumbotron -->
 
   <script>
+  var gameID = 0;
 function getInfo() {
   $.post("{% url "lolbet.views.gameInfo" %}",
         {
           channelName: "{{channelName}}"
         },
         function(data,status){
-            //alert(data+" - "+status)
+          if(data=="False")
+          {
+            //voir ce qu'on affiche si on ne trouve pas de game
+            alert("noDATA");
+          }else{
+            //transformer les data en JSON et prendre l'id puis lancer le json dans updateLookup et modifier update lookup
+            alert("DATA");
+             if(gameID != 1){
+              gameID = 1;
+              //show in game stat
+              var lookup = document.getElementById("lookup");
+              updateLookup(null,lookup);
+
+              
+            }
+          }
         });
 }
     getInfo();
