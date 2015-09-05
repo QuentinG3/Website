@@ -78,6 +78,7 @@ class Player(models.Model):
 
 class Profil(models.Model):
 	user = models.OneToOneField(User)
+	username = models.CharField(max_length = 30, null=True)
 	elo = models.IntegerField(default = 1200)
 	verifyAge = models.DateField(null=True)
 

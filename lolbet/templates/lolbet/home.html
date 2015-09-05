@@ -20,13 +20,13 @@
         <div class="stream">
         <a href="{% url "lolbet.views.streamer" item.name %}" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
         <p class="stream-title">
-          <a href="overview.html" title="{{item.status}}">
+          <a href="{% url "lolbet.views.streamer" item.name %}" title="{{item.status}}">
           {{item.status}}</a>
         </p>
         <p class="stream-info">
          {{item.viewers}}
           viewers on
-          <a href="overview.html">{{item.channelName}}</a>
+          <a href="{% url "lolbet.views.streamer" item.name %}">{{item.channelName}}</a>
         </p>
         </div>
 

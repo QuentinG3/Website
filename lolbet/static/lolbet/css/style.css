@@ -75,10 +75,6 @@ div.modal-header>h4>span{
 	color: black;
 }
 
-.modal-dialog{
-	width:650px;
-}
-
 .stream{
 	margin-bottom: 15px;
     display: inline-block;
