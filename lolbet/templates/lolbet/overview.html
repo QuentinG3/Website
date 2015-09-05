@@ -207,6 +207,22 @@
 
   </div><!-- end jumbotron -->
 
+  <script>
+function getInfo() {
+  $.post("{% url "lolbet.views.gameInfo" %}",
+        {
+          name: "{{name}}"
+        },
+        function(data,status){
+            //alert(data+" - "+status)
+        });
+}
+    getInfo();
+    setInterval(function() {getInfo()},59000);
+
+    
+  </script>
+
  {% endblock %}
 
 {% block signAction %}"{% url "lolbet.views.streamer" name %}"{% endblock %}

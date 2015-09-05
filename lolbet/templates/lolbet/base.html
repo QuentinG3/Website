@@ -79,6 +79,102 @@
   
   <!-- end of navbar -->
 
+    <script>
+  //Setup ajax avec csrf token
+  var csrftoken = getCookie('csrftoken');
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
+
+//validate signin ajax
+function validateSigninAjax(){
+  if(validateSignin()){
+   $.post("{% url "lolbet.views.register" %}",
+        {
+          username: document.forms["signInForm"]["username"].value,
+          email: document.forms["signInForm"]["email"].value,
+          password1: document.forms["signInForm"]["password1"].value,
+          password2: document.forms["signInForm"]["password2"].value,
+          verifyAge: document.forms["signInForm"]["verifyAge"].value
+        },
+        function(data,status){
+            var object = JSON.parse(data)
+            //alert("Data: " + data+ object.email + object.username + "\nStatus: " + status);
+
+            if(object.username == "ok" && object.email == "ok")
+            {
+              location.reload();
+            }else{
+              if(object.username != "ok")
+              {
+                document.getElementById("usernameHint").innerHTML  = "! This username is already taken";
+              }
+              if(object.email != "ok")
+              {
+                document.getElementById("emailHint").innerHTML  = "! This email is already taken";
+              }
+            }
+        });
+  }
+  
+  return false;
+}
+
+
+//vaidate login ajax
+function validateLoginAjax(){
+  if(validateLogin()){
+    $.post("{% url "lolbet.views.connect" %}",
+        {
+          username: document.forms["loginForm"]["username"].value,
+          password: document.forms["loginForm"]["password"].value
+        },
+        function(data,status){
+            //alert("Data: " + data + "\nStatus: " + status);
+            if(data=="True")
+            {
+              location.reload();
+              //window.open("{% url "lolbet.views.home" %}","_self")
+            }else{
+              document.getElementById("logUserHint").innerHTML  = "! Invalid Credidential";
+            }
+        });
+  }
+  
+  return false;
+}
+
+  //Clean Modal when it's hidden
+  $('#signModal').on('hidden.bs.modal', function () {
+    document.getElementById("signModal").className = "modal fade";
+    document.forms["signInForm"]["username"].value = "";
+    document.forms["signInForm"]["email"].value = "";
+    document.forms["signInForm"]["password1"].value = "";
+    document.forms["signInForm"]["password2"].value = "";
+    document.forms["signInForm"]["verifyAge"].value = "";
+    document.forms["signInForm"]["terms"].checked = false;
+    document.getElementById("usernameHint").innerHTML  = "";
+    document.getElementById("pass1Hint").innerHTML  = "";
+    document.getElementById("pass2Hint").innerHTML  = "";
+    document.getElementById("emailHint").innerHTML  = "";
+    document.getElementById("ageHint").innerHTML  = "";
+    document.getElementById("termsHint").innerHTML  = "";
+})
+
+  //Clean Modal when it's hidden
+  $('#loginModal').on('hidden.bs.modal', function () {
+    document.getElementById("loginModal").className = "modal fade";
+    document.forms["loginForm"]["username"].value = "";
+    document.forms["loginForm"]["password"].value = "";
+    document.getElementById("logUserHint").innerHTML  = "";
+    document.getElementById("logPassHint").innerHTML  = "";
+})
+   </script>
+
     
 
   <!-- Page BODY -->
@@ -210,102 +306,6 @@
     </div>
   </div>
 
-
-  <script>
-  //Setup ajax avec csrf token
-  var csrftoken = getCookie('csrftoken');
-$.ajaxSetup({
-    beforeSend: function(xhr, settings) {
-        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-            xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-    }
-});
-
-//validate signin ajax
-function validateSigninAjax(){
-  if(validateSignin()){
-   $.post("{% url "lolbet.views.register" %}",
-        {
-          username: document.forms["signInForm"]["username"].value,
-          email: document.forms["signInForm"]["email"].value,
-          password1: document.forms["signInForm"]["password1"].value,
-          password2: document.forms["signInForm"]["password2"].value,
-          verifyAge: document.forms["signInForm"]["verifyAge"].value
-        },
-        function(data,status){
-            var object = JSON.parse(data)
-            //alert("Data: " + data+ object.email + object.username + "\nStatus: " + status);
-
-            if(object.username == "ok" && object.email == "ok")
-            {
-              location.reload();
-            }else{
-              if(object.username != "ok")
-              {
-                document.getElementById("usernameHint").innerHTML  = "! This username is already taken";
-              }
-              if(object.email != "ok")
-              {
-                document.getElementById("emailHint").innerHTML  = "! This email is already taken";
-              }
-            }
-        });
-  }
-  
-  return false;
-}
-
-
-//vaidate login ajax
-function validateLoginAjax(){
-  if(validateLogin()){
-    $.post("{% url "lolbet.views.connect" %}",
-        {
-          username: document.forms["loginForm"]["username"].value,
-          password: document.forms["loginForm"]["password"].value
-        },
-        function(data,status){
-            //alert("Data: " + data + "\nStatus: " + status);
-            if(data=="True")
-            {
-              location.reload();
-              //window.open("{% url "lolbet.views.home" %}","_self")
-            }else{
-              document.getElementById("logUserHint").innerHTML  = "! Invalid Credidential";
-            }
-        });
-  }
-  
-  return false;
-}
-
-  //Clean Modal when it's hidden
-  $('#signModal').on('hidden.bs.modal', function () {
-    document.getElementById("signModal").className = "modal fade";
-    document.forms["signInForm"]["username"].value = "";
-    document.forms["signInForm"]["email"].value = "";
-    document.forms["signInForm"]["password1"].value = "";
-    document.forms["signInForm"]["password2"].value = "";
-    document.forms["signInForm"]["verifyAge"].value = "";
-    document.forms["signInForm"]["terms"].checked = false;
-    document.getElementById("usernameHint").innerHTML  = "";
-    document.getElementById("pass1Hint").innerHTML  = "";
-    document.getElementById("pass2Hint").innerHTML  = "";
-    document.getElementById("emailHint").innerHTML  = "";
-    document.getElementById("ageHint").innerHTML  = "";
-    document.getElementById("termsHint").innerHTML  = "";
-})
-
-  //Clean Modal when it's hidden
-  $('#loginModal').on('hidden.bs.modal', function () {
-    document.getElementById("loginModal").className = "modal fade";
-    document.forms["loginForm"]["username"].value = "";
-    document.forms["loginForm"]["password"].value = "";
-    document.getElementById("logUserHint").innerHTML  = "";
-    document.getElementById("logPassHint").innerHTML  = "";
-})
-   </script>
 
  <!--Footer-->
 

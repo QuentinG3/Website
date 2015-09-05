@@ -13,5 +13,6 @@ urlpatterns = patterns('lolbet.views',
 	url(r'^streamer/(\w+)$','streamer'),
 	url(r'^send$','send'),
 	url(r'^connect$','connect'),
+	url(r'^gameInfo$','gameInfo'),
 
 	)

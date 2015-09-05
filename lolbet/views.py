@@ -37,6 +37,11 @@ def email_present(email):
 
     return False
 
+def gameInfo(request):
+	name = request.POST['name']
+	print(name)
+	return HttpResponse("hello")
+
 
 def streamer(request,name):
 	'''

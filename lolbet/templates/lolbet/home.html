@@ -18,15 +18,15 @@
 
     {% for item in Streamers %}
         <div class="stream">
-        <a href="{% url "lolbet.views.streamer" item.name %}" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
+        <a href="{% url "lolbet.views.streamer" item.channelName %}" ><img src = "{{item.preview}}" class="img-responsive" alt="{{item.channelName}}"></a>
         <p class="stream-title">
-          <a href="{% url "lolbet.views.streamer" item.name %}" title="{{item.status}}">
+          <a href="{% url "lolbet.views.streamer" item.channelName %}" title="{{item.status}}">
           {{item.status}}</a>
         </p>
         <p class="stream-info">
          {{item.viewers}}
           viewers on
-          <a href="{% url "lolbet.views.streamer" item.name %}">{{item.channelName}}</a>
+          <a href="{% url "lolbet.views.streamer" item.channelName %}">{{item.channelName}}</a>
         </p>
         </div>
 
