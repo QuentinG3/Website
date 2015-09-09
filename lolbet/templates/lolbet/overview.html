@@ -6,27 +6,28 @@
   {% block body %}
 
   <div class="row">
-
     <div class="col-md-7">
-      <div class="content">
+      <div class="content " id="streamWindow">
     <h2><span>{{channelName}}</span> - Stream</h2>
 
-    <center><iframe src="http://www.twitch.tv/{{channelName}}/embed" frameborder="0" scrolling="no" height="300" width="480"></iframe></center>
+    <center><iframe src="http://www.twitch.tv/{{channelName}}/embed" width="100%" height="100%" id="stream"></iframe></center>
 
-  </div>
-</div>
+    </div>
+    </div>
     <div class="col-md-5">
-    <div class="content" style="height:388px;">
+      <div class="content" id="betWindow">
     <h2><span>Current</span> Bet </h2>
 
     <p> here will be the bet window with the user interfaces </p>
 
   </div>
-
-</div>
-
+    </div>
 
   </div>
+
+      
+
+    
 
   <div class="content" id="lookup">
     
@@ -34,184 +35,34 @@
 
    
 
-  <div class="content" style="display:none">
-    <h2>{{game.summonersName.name}}</h2>
-    <h5>Ranked Solo | Summoner's Rift | {{gameList.0.region}}</h5>
-    <hr>
-
-    <div class="table-responsive table-bg">
-    <table class="table">
-        <tbody>
-
-          <!-- debut team bleu -->
-
-            <tr>
-              {% for player in team1 %}
-                <td>
-                  <center><h5 class="summoner-name-blue">{{player.name}}</h5></center>
-        <div class="image image-blue">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{player.champion}}_0.jpg" alt="{{player.champion}}"/>
-      <h5 class="kda"> - </h5>
-      <h5 class="wl"> W:{{player.wins}} - L:{{player.losses}}</h5>
-      <h5 class="bg"></h5>
-      <a href="" class="tooltip3"><img class="league" src="https://boost-rankedboost.netdna-ssl.com/file/2014/09/{{player.tier}}-rewards-lol.png">
-        <span>
-        <center><b>{{player.tier}} {{player.division}} - {{player.leaguePoints}} LP</b></center>
-    </span>
-      </a>
-      <h6 class="leaguen">{{player.division}}</h6>
-      <a href="" class="tooltip2"><img class="runes" src="{% static 'lolbet/pictures/runes.png' %}">
-        <span>
-        <b>Runes:</b>
-        <br>{{player.tier}}
-        <br>
-        <b>Masteries:</b>
-    </span>
-      </a>
-      <img class="summoner1" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner{{player.spell1}}.png">
-      <img class="summoner2" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner{{player.spell2}}.png">
-
-        </div>
-      </td>
-
-      {% endfor %}
-            </tr>
-<!-- fin de la team blue -->
-
-<tr>
-
-  <td></td>
-  <td></td>
-  <td style="height:80px;"></td>
-  <td></td>
-  <td></td>
-
-</tr>
-
-<!-- debut team rouge -->
-
-            <tr>
-              {% for player in team2 %}
-                <td>
-                  <center><h5 class="summoner-name-red">{{player.name}}</h5></center>
-        <div class="image image-red">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{player.champion}}_0.jpg" alt="{{player.champion}}"/>
-      <h5 class="kda"> - </h5>
-      <h5 class="wl"> W:{{player.wins}} - L:{{player.losses}}</h5>
-      <h5 class="bg"></h5>
-      <a href="" class="tooltip3"><img class="league" src="https://boost-rankedboost.netdna-ssl.com/file/2014/09/{{player.tier}}-rewards-lol.png">
-        <span>
-        <center><b>{{player.tier}} {{player.division}} - {{player.leaguePoints}} LP</b></center>
-    </span>
-      </a>
-      <h6 class="leaguen">{{player.division}}</h6>
-      <a href="" class="tooltip2"><img class="runes" src="{% static 'lolbet/pictures/runes.png' %}">
-        <span>
-        <b>Runes:</b>
-        <br>
-        <br>
-        <b>Masteries:</b>
-    </span>
-      </a>
-      <img class="summoner1" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner{{player.spell1}}.png">
-      <img class="summoner2" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner{{player.spell2}}.png">
-
-        </div>
-      </td>
-
-      {% endfor %}
-            </tr>
-        </tbody>
-    </table>
-
-
-
-</div><!-- end table -->
-
-    <hr>
-
-    <h2><span>Banned</span> Champions</h2>
-
-    <div class="table-responsive">
-    <table class="table">
-        <tbody>
-
-          <tr>
-
-            <td>
-              <center>
-
-                <div class="image image-blue">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions0}}_0.jpg" alt="{{game.bannedChampions0}}"/>
-</div>
-    </center>
-
-            </td>
-            <td>
-              <center>
-
-                <div class="image image-blue">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions1}}_0.jpg" alt="{{game.bannedChampions1}}"/>
-</div>
-    </center>
-            </td>
-            <td>
-              <center>
-
-                <div class="image image-blue">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions2}}_0.jpg" alt="{{game.bannedChampions2}}"/>
-</div>
-    </center>
-            </td>
-
-  <td style="vertical-align:middle;" width="20">  </td>
-
-            <td>
-              <center>
-
-                <div class="image image-red">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions3}}_0.jpg" alt="{{game.bannedChampions3}}"/>
-</div>
-    </center>
-            </td>
-            <td>
-              <center>
-
-                <div class="image image-red">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions4}}_0.jpg" alt="{{game.bannedChampions4}}"/>
-</div>
-    </center>
-            </td>
-            <td>
-              <center>
-
-                <div class="image image-red">
-
-      <img width="145" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{game.bannedChampions5}}_0.jpg" alt="{{game.bannedChampions5}}"/>
-</div>
-    </center>
-            </td>
-
-          </tr>
-
-          </tbody>
-
-        </table>
-
-      </div> <!-- end table -->
-
-      <hr>
-
-  </div><!-- end jumbotron -->
+  
 
   <script>
+ //document.getElementById("iframe1").height= "0px";
+  function autoResizeFrame(id){
+    var el;
+      try {
+ el = window.getComputedStyle(document.getElementById('streamWindow'), null)
+     .getPropertyValue('padding-left');
+} catch(e) {
+ el = document.getElementById('streamWindow').currentStyle.padding-left;
+} 
+    var x = document.getElementById("streamWindow").clientWidth;
+    var y = parseInt(x) - 2*parseInt(el);
+
+    document.getElementById(id).height= y*9/16+"px";
+    document.getElementById(id).width= y + "px";
+
+    document.getElementById('betWindow').style.height = document.getElementById('streamWindow').offsetHeight +"px";
+    document.getElementById('betWindow').style.min-height = document.getElementById('streamWindow').offsetHeight +"px";
+    document.getElementById('betWindow').style.max-height = document.getElementById('streamWindow').offsetHeight +"px";
+
+}
+  autoResizeFrame("stream");
+  window.onresize = function(event) {
+      autoResizeFrame("stream");
+}
+
   var gameID = 0;
 function getInfo() {
   $.post("{% url "lolbet.views.gameInfo" %}",
@@ -222,7 +73,7 @@ function getInfo() {
           if(data=="False")
           {
             //voir ce qu'on affiche si on ne trouve pas de game
-            alert("noDATA");
+            //alert("noDATA");
             document.getElementById("lookup").setAttribute("style","display:none");
             //Afficher le match history
           }else{

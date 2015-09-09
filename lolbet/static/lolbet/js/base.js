@@ -1,3 +1,18 @@
+
+function autoResizeFrame(id){
+    var newheight;
+    var newwidth;
+
+    if(document.getElementById){
+        newheight=document.getElementById(id).contentWindow.document .body.scrollHeight;
+        newwidth=document.getElementById(id).contentWindow.document .body.scrollWidth;
+    }
+
+    document.getElementById(id).height= "0px";
+    document.getElementById(id).width= (newwidth) + "px";
+}
+
+
 function updateLookup(JSON,lookup)
 {
   //Premier header
