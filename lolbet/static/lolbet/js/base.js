@@ -3,14 +3,14 @@ function updateLookup(JSON,lookup)
   //Premier header
               var header = document.createElement("h2");
               //TODO => name
-              var headerText = document.createTextNode("NAME TODO");
+              var headerText = document.createTextNode(JSON.summonerName);
               header.appendChild(headerText);
               lookup.appendChild(header);
 
               //Second header
               var header2 = document.createElement("h5");
               //TODO => Region
-              var headerText2 = document.createTextNode("Ranked Solo | Summoner's Rift |");
+              var headerText2 = document.createTextNode("Ranked Solo | Summoner's Rift |"+JSON.region);
               header2.appendChild(headerText2);
               lookup.appendChild(header2);
 
@@ -36,7 +36,8 @@ function updateLookup(JSON,lookup)
               tbody.appendChild(tr1);
 
               //Boucle for pour les joueurs de la team 1
-
+              for(var i = 0 ; i < JSON.team1.length ; i++){
+                var player = JSON.team1[i];
                 var td1 = document.createElement("td");
                 tr1.appendChild(td1);
 
@@ -46,7 +47,7 @@ function updateLookup(JSON,lookup)
                 //Player Name
                 var h50 = document.createElement("h5");
                 h50.className = "summoner-name-blue";
-                var h50text = document.createTextNode("Player1Name");
+                var h50text = document.createTextNode(player.name);
                 h50.appendChild(h50text);
                 center1.appendChild(h50);
 
@@ -57,8 +58,8 @@ function updateLookup(JSON,lookup)
                 //Champion name img x2
                 var img = document.createElement("img");
                 img.setAttribute("width", "145");
-                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Anivia_0.jpg");
-                img.setAttribute("alt", "nomChampion");
+                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+player.champion+"_0.jpg");
+                img.setAttribute("alt", player.champion);
                 imageDiv.appendChild(img);
 
                 //KDA
@@ -71,7 +72,7 @@ function updateLookup(JSON,lookup)
                 //WL
                 var h52 = document.createElement("h5");
                 h52.className = "wl";
-                var h52text = document.createTextNode("W:XXX - L:XXX ");
+                var h52text = document.createTextNode("W:"+player.wins+" - L:"+player.losses);
                 h52.appendChild(h52text);
                 imageDiv.appendChild(h52);
 
@@ -88,7 +89,7 @@ function updateLookup(JSON,lookup)
 
                 var imgLeague = document.createElement("img");
                 imgLeague.className = "league";
-                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/diamond-rewards-lol.png");
+                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/"+player.tier+"-rewards-lol.png");
                 tooltipDiv.appendChild(imgLeague);
 
                 var spanTooltipDiv = document.createElement("span");
@@ -98,14 +99,14 @@ function updateLookup(JSON,lookup)
                 spanTooltipDiv.appendChild(spanCenter);
 
                 var spanBold = document.createElement("b");
-                var spanBoldText = document.createTextNode("Diamond I - 85 LP");
+                var spanBoldText = document.createTextNode(player.tier+" "+player.division+" - "+player.leaguePoints+" LP");
                 spanBold.appendChild(spanBoldText);
                 spanCenter.appendChild(spanBold);
 
                 //League division
                 var h6 = document.createElement("h6");
                 h6.className = "leaguen";
-                var h6Text = document.createTextNode("I");
+                var h6Text = document.createTextNode(player.division);
                 h6.appendChild(h6Text);
                 imageDiv.appendChild(h6);
 
@@ -142,13 +143,13 @@ function updateLookup(JSON,lookup)
                 //summoners 1 et 2
                 var summ1 = document.createElement("img");
                 summ1.className = "summoner1";
-                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerFlash.png");
+                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner"+ player.spell1 +".png");
                 imageDiv.appendChild(summ1);
                 var summ2 = document.createElement("img");
                 summ2.className = "summoner2";
-                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerDot.png");
+                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner"+ player.spell2+".png");
                 imageDiv.appendChild(summ2);
-
+              }
               //Espace entre les deux teams
               var trm = document.createElement("tr");
               tbody.appendChild(trm);
@@ -161,7 +162,8 @@ function updateLookup(JSON,lookup)
               tbody.appendChild(tr2);
 
               //Boucle for pour les joueurs de la team 2
-
+              for(var i = 0 ; i < JSON.team2.length ; i++){
+                var player = JSON.team2[i];
                 var td1 = document.createElement("td");
                 tr2.appendChild(td1);
 
@@ -171,7 +173,7 @@ function updateLookup(JSON,lookup)
                 //Player Name
                 var h50 = document.createElement("h5");
                 h50.className = "summoner-name-red";
-                var h50text = document.createTextNode("Player1Name");
+                var h50text = document.createTextNode(player.name);
                 h50.appendChild(h50text);
                 center1.appendChild(h50);
 
@@ -182,8 +184,8 @@ function updateLookup(JSON,lookup)
                 //Champion name img x2
                 var img = document.createElement("img");
                 img.setAttribute("width", "145");
-                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Anivia_0.jpg");
-                img.setAttribute("alt", "nomChampion");
+                img.setAttribute("src", "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+player.champion+"_0.jpg");
+                img.setAttribute("alt", player.champion);
                 imageDiv.appendChild(img);
 
                 //KDA
@@ -196,7 +198,7 @@ function updateLookup(JSON,lookup)
                 //WL
                 var h52 = document.createElement("h5");
                 h52.className = "wl";
-                var h52text = document.createTextNode("W:XXX - L:XXX ");
+                var h52text = document.createTextNode("W:"+player.wins+" - L:"+player.losses);
                 h52.appendChild(h52text);
                 imageDiv.appendChild(h52);
 
@@ -213,7 +215,7 @@ function updateLookup(JSON,lookup)
 
                 var imgLeague = document.createElement("img");
                 imgLeague.className = "league";
-                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/diamond-rewards-lol.png");
+                imgLeague.setAttribute("src","https://boost-rankedboost.netdna-ssl.com/file/2014/09/"+player.tier+"-rewards-lol.png");
                 tooltipDiv.appendChild(imgLeague);
 
                 var spanTooltipDiv = document.createElement("span");
@@ -223,14 +225,14 @@ function updateLookup(JSON,lookup)
                 spanTooltipDiv.appendChild(spanCenter);
 
                 var spanBold = document.createElement("b");
-                var spanBoldText = document.createTextNode("Diamond I - 85 LP");
+                var spanBoldText = document.createTextNode(player.tier+" "+player.division+" - "+player.leaguePoints+" LP");
                 spanBold.appendChild(spanBoldText);
                 spanCenter.appendChild(spanBold);
 
                 //League division
                 var h6 = document.createElement("h6");
                 h6.className = "leaguen";
-                var h6Text = document.createTextNode("I");
+                var h6Text = document.createTextNode(player.division);
                 h6.appendChild(h6Text);
                 imageDiv.appendChild(h6);
 
@@ -267,12 +269,13 @@ function updateLookup(JSON,lookup)
                 //summoners 1 et 2
                 var summ1 = document.createElement("img");
                 summ1.className = "summoner1";
-                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerFlash.png");
+                summ1.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner"+ player.spell1 +".png");
                 imageDiv.appendChild(summ1);
                 var summ2 = document.createElement("img");
                 summ2.className = "summoner2";
-                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/SummonerDot.png");
+                summ2.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/5.2.1/img/spell/Summoner"+ player.spell2+".png");
                 imageDiv.appendChild(summ2);
+              }
 
               //HR
               var hr2 = document.createElement("hr");
@@ -307,7 +310,8 @@ function updateLookup(JSON,lookup)
               tbodyB.appendChild(trB);
 
               //boucle for * nombre de ban blue (3 normalement)
-
+              for(var i = 0 ; i < JSON.banned1.length ; i++){
+                var banned = JSON.banned1[i];
                 //create td
                 tdB = document.createElement("td");
                 trB.appendChild(tdB);
@@ -324,12 +328,13 @@ function updateLookup(JSON,lookup)
                 //create img ChampionBannedBlueName
                 bannedImg = document.createElement("img");
                 bannedImg.setAttribute("width","145");
-                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Skarner_0.jpg");
+                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+banned+"_0.jpg");
                 bannedImg.setAttribute("alt","championName");
                 bannedDiv.appendChild(bannedImg);
-
+              }
               //boucle for * nombre de ban red (3 normalement)
-
+              for(var i = 0 ; i < JSON.banned2.length ;i++){
+                var banned = JSON.banned2[i];
                 //create td
                 tdB = document.createElement("td");
                 trB.appendChild(tdB);
@@ -346,9 +351,10 @@ function updateLookup(JSON,lookup)
                 //create img ChampionBannedBlueName
                 bannedImg = document.createElement("img");
                 bannedImg.setAttribute("width","145");
-                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/Skarner_0.jpg");
+                bannedImg.setAttribute("src","http://ddragon.leagueoflegends.com/cdn/img/champion/loading/"+banned+"_0.jpg");
                 bannedImg.setAttribute("alt","championName");
                 bannedDiv.appendChild(bannedImg);  
+              }
 
 }
 

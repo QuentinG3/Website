@@ -223,14 +223,19 @@ function getInfo() {
           {
             //voir ce qu'on affiche si on ne trouve pas de game
             alert("noDATA");
+            document.getElementById("lookup").setAttribute("style","display:none");
+            //Afficher le match history
           }else{
             //transformer les data en JSON et prendre l'id puis lancer le json dans updateLookup et modifier update lookup
-            alert("DATA");
-             if(gameID != 1){
-              gameID = 1;
+            var object = JSON.parse(data);
+            
+            //alert("DATA");
+             if(gameID != object.gameId){
+              gameID = object.gameId;
+              alert(gameID);
               //show in game stat
               var lookup = document.getElementById("lookup");
-              updateLookup(null,lookup);
+              updateLookup(object,lookup);
 
               
             }

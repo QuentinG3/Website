@@ -12,6 +12,8 @@ from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from lolbet.apiReader import lookUpStreamer
 import json
+from django.db.models.fields.related import ManyToManyField
+from django.core import serializers
 
 
 def send(request):
@@ -38,9 +40,11 @@ def email_present(email):
     return False
 
 def gameInfo(request):
+
 	channelName = request.POST['channelName']
 	streamer=Streamer.objects.filter(channelName=channelName)[0]
-	lookUpStreamer(streamer)
+	#lookUpStreamer(streamer)
+
 
 	summonerName=SummonersName.objects.filter(streamer=streamer)
 	inGameSummoner = list()
@@ -48,30 +52,58 @@ def gameInfo(request):
 		if hasattr(item, 'game'):
 			inGameSummoner.append(item)
 	if len(inGameSummoner) == 0:
+		print("return false")
 		return HttpResponse(False)
 	
 
-	game=Game.objects.filter(summonersName=inGameSummoner[0])[0]
+	game=inGameSummoner[0].game
 	players=Player.objects.filter(game=game)
 
 	team1=list(players[0:5])
 	team2=list(players[5:10])
-	
-	player1 = team1[0]
-	myDict=player1.__dict__
-	
-	
+
 	jsonData = dict()
 	jsonData['summonerName'] = inGameSummoner[0].name
-	jsonData['game'] = game.__dict__
+	jsonData['gameId'] = game.gameId
+	jsonData['region'] = inGameSummoner[0].region
 	jsonData['team1'] = list()
 	jsonData['team2'] = list()
-	for player in team1:
-		jsonData['team1'].append(player.__dict__)
-	for player in team2:
-		jsonData['team2'].append(player.__dict__)
-	print(jsonData)
-	
+	for item in team1:
+		player = dict()
+		player['name'] = item.name
+		player['champion'] = item.champion
+		player['wins'] = item.wins
+		player['losses'] = item.losses
+		player['division'] = item.division
+		player['tier'] = item.tier
+		player['leaguePoints'] = item.leaguePoints
+		player['spell1'] = item.spell1
+		player['spell2'] = item.spell2
+		jsonData['team1'].append(player)
+
+	for item in team2:
+		player = dict()
+		player['name'] = item.name
+		player['champion'] = item.champion
+		player['wins'] = item.wins
+		player['losses'] = item.losses
+		player['division'] = item.division
+		player['tier'] = item.tier
+		player['leaguePoints'] = item.leaguePoints
+		player['spell1'] = item.spell1
+		player['spell2'] = item.spell2
+		jsonData['team2'].append(player)
+
+	jsonData['banned1']=list()
+	jsonData['banned2']=list()
+	jsonData['banned1'].append(game.bannedChampions0)
+	jsonData['banned1'].append(game.bannedChampions1)
+	jsonData['banned1'].append(game.bannedChampions2)
+
+	jsonData['banned2'].append(game.bannedChampions3)
+	jsonData['banned2'].append(game.bannedChampions4)
+	jsonData['banned2'].append(game.bannedChampions5)
+
 	return HttpResponse(json.dumps(jsonData))
 
 
